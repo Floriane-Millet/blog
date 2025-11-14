@@ -2,82 +2,143 @@
 
 Blog d'expérience Erasmus à Osijek, Croatie.
 
-## Arborescence du Projet
+## 🎯 Nouvelle Structure Simplifiée
+
+**Un dossier par page** - Chaque page a son propre dossier contenant HTML, CSS et JavaScript ensemble. Plus besoin de chercher dans plusieurs dossiers!
+
+## 📁 Arborescence du Projet
 
 ```
 blog/
 │
-├── index.html                          # Page d'accueil avec carte interactive Leaflet
-├── about.html                          # Page "About Us" - Présentation de l'équipe
+├── index.html                          # Page carte interactive (point d'entrée)
+├── map-styles.css                      # Styles de la carte
+├── map-script.js                       # Script de la carte Leaflet
 ├── README.md                           # Ce fichier
 │
-├── pre-departure/                      # Guide pré-départ (4 pages)
-│   ├── destination.html                # Présentation d'Osijek
-│   ├── transport.html                  # Se rendre à Osijek et se déplacer
-│   ├── accommodation.html              # Logement et conseils pratiques
-│   └── student-life.html               # Vie étudiante et activités
+├── home/                               # Page d'accueil avec menu
+│   ├── index.html
+│   ├── styles.css
+│   └── script.js
 │
-├── blog/                               # Section blog
-│   ├── index.html                      # Page listing des articles
-│   └── posts/                          # Articles de blog
-│       ├── culture.html                # Découverte de la culture croate
-│       ├── customs.html                # Coutumes et étiquette sociale
-│       └── economy.html                # Vivre avec un budget étudiant
+├── about/                              # Page "About Us"
+│   ├── index.html
+│   ├── styles.css
+│   └── script.js
 │
-└── assets/                             # Ressources
-    │
-    ├── css/                            # Feuilles de style
-    │   ├── global.css                  # Styles globaux (navigation, footer, base)
-    │   ├── home.css                    # Styles spécifiques page d'accueil
-    │   ├── about.css                   # Styles page "About"
-    │   ├── pre-departure.css           # Styles pages guide pré-départ
-    │   ├── blog-listing.css            # Styles page listing blog
-    │   └── blog-post.css               # Styles articles de blog
-    │
-    ├── js/                             # JavaScript
-    │   └── script.js                   # Script global (navigation, menu, carte Leaflet)
-    │
-    └── images/                         # Images
-        └── .gitkeep
+├── destination/                        # Guide: Destination Osijek
+│   ├── index.html
+│   ├── styles.css
+│   └── script.js
+│
+├── transport/                          # Guide: Transport
+│   ├── index.html
+│   ├── styles.css
+│   └── script.js
+│
+├── accommodation/                      # Guide: Logement
+│   ├── index.html
+│   ├── styles.css
+│   └── script.js
+│
+├── student-life/                       # Guide: Vie étudiante
+│   ├── index.html
+│   ├── styles.css
+│   └── script.js
+│
+├── blog-listing/                       # Page listing des articles
+│   ├── index.html
+│   ├── styles.css
+│   └── script.js
+│
+├── blog-culture/                       # Article: Culture croate
+│   ├── index.html
+│   ├── styles.css
+│   └── script.js
+│
+├── blog-customs/                       # Article: Coutumes sociales
+│   ├── index.html
+│   ├── styles.css
+│   └── script.js
+│
+└── blog-economy/                       # Article: Budget étudiant
+    ├── index.html
+    ├── styles.css
+    └── script.js
 ```
 
-## Structure des Pages
+## 🗺️ Navigation du Site
 
-### Navigation
+### Structure Principale
+1. **Carte Interactive** (`index.html`) → Clic sur le marqueur → Page d'accueil
+2. **Page d'accueil** (`home/`) → Menu avec 3 sections principales
 
-- **Home** → `index.html`
-- **About Us** → `about.html`
-- **Pre-Departure Guide** (menu déroulant)
-  - Destination: Osijek → `pre-departure/destination.html`
-  - Getting There & Around → `pre-departure/transport.html`
-  - Accommodation & Practical Tips → `pre-departure/accommodation.html`
-  - Student Life → `pre-departure/student-life.html`
-- **During Our Stay** → `blog/index.html`
+### 3 Sections Principales
 
-### Blog Posts
+#### 1. About Us
+- **Route**: `about/index.html`
+- Présentation de l'équipe Erasmus
 
-- Culture croate → `blog/posts/culture.html`
-- Coutumes sociales → `blog/posts/customs.html`
-- Budget étudiant → `blog/posts/economy.html`
+#### 2. Pre-Departure Guide (Menu Déroulant)
+- **Destination: Osijek** → `destination/index.html`
+- **Getting There & Around** → `transport/index.html`
+- **Accommodation & Tips** → `accommodation/index.html`
+- **Student Life** → `student-life/index.html`
 
-## Technologies
+#### 3. During Our Stay (Blog)
+- **Listing des articles** → `blog-listing/index.html`
+- **Article Culture** → `blog-culture/index.html`
+- **Article Coutumes** → `blog-customs/index.html`
+- **Article Économie** → `blog-economy/index.html`
+
+## 🎨 Technologies
 
 - **HTML5** - Structure sémantique
-- **CSS3** - Design responsive avec variables CSS
+- **CSS3** - Design responsive avec animations
 - **JavaScript ES6** - Interactions et navigation
-- **Leaflet.js** - Carte interactive sur la page d'accueil
+- **Leaflet.js** - Carte interactive (page d'accueil uniquement)
 - **Google Fonts** - Police Inter
 
-## Caractéristiques
+## ✨ Caractéristiques
 
+- ✅ **Structure simple**: Un dossier par page
+- ✅ **Fichiers auto-contenus**: HTML, CSS, JS ensemble
 - ✅ Design responsive (mobile, tablette, desktop)
 - ✅ Navigation avec menu hamburger sur mobile
 - ✅ Menu déroulant pour le guide pré-départ
-- ✅ Carte interactive Leaflet centrée sur l'Europe
-- ✅ Architecture CSS modulaire
+- ✅ Carte interactive Leaflet
+- ✅ Thème de couleur jaune professionnel (#FDB515, #FFA500)
 - ✅ Accessibilité (ARIA, HTML sémantique)
 - ✅ Animations et transitions fluides
 
-## Utilisation
+## 🚀 Utilisation
 
-Ouvrir `index.html` dans un navigateur pour visualiser le site.
+1. Ouvrir `index.html` dans un navigateur
+2. Cliquer sur le marqueur jaune sur la carte
+3. Naviguer à travers les 3 sections du menu
+
+## 📝 Modifier une Page
+
+Pour modifier une page, tout est dans son dossier:
+- **Contenu HTML**: Modifier `index.html`
+- **Apparence**: Modifier `styles.css`
+- **Interactivité**: Modifier `script.js`
+
+Exemple: Pour modifier la page "About Us"
+```
+blog/about/
+├── index.html    ← Modifier le contenu ici
+├── styles.css    ← Modifier les couleurs/mise en page ici
+└── script.js     ← Modifier les interactions ici
+```
+
+## 🎯 Avantages de la Nouvelle Structure
+
+✅ **Plus simple à comprendre** - Un dossier = une page
+✅ **Plus facile à modifier** - Tous les fichiers d'une page ensemble
+✅ **Plus rapide à trouver** - Pas besoin de chercher dans assets/
+✅ **Moins de confusion** - Structure claire et logique
+
+---
+
+**Projet réalisé dans le cadre d'une mobilité Erasmus à Osijek, Croatie (2024)**
