@@ -301,7 +301,7 @@ function initializeMap() {
                 A vibrant student city on the Drava River,
                 perfect for your Erasmus adventure!
             </p>
-            <a href="destination.html" class="popup-button">
+            <a href="pre-departure/destination.html" class="popup-button">
                 Explore Destination →
             </a>
         </div>
@@ -319,7 +319,7 @@ function initializeMap() {
         });
 
         setTimeout(function() {
-            window.location.href = 'destination.html';
+            window.location.href = 'pre-departure/destination.html';
         }, 1600);
     });
 
