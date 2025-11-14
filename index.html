@@ -60,197 +60,8 @@
         }
 
         /* ========================================
-           CENTRAL MENU MODAL
+           LOADING SPINNER
            ======================================== */
-        .menu-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.4s ease;
-        }
-
-        .menu-overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .menu-container {
-            background: #ffffff;
-            border-radius: 20px;
-            padding: 3rem;
-            max-width: 500px;
-            width: 90%;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            transform: scale(0.9);
-            transition: transform 0.4s ease;
-            max-height: 85vh;
-            overflow-y: auto;
-        }
-
-        .menu-overlay.active .menu-container {
-            transform: scale(1);
-        }
-
-        .menu-header {
-            text-align: center;
-            margin-bottom: 2rem;
-            padding-bottom: 1.5rem;
-            border-bottom: 3px solid #FDB515;
-        }
-
-        .menu-title {
-            font-size: 2rem;
-            font-weight: 700;
-            color: #1a1a1a;
-            margin-bottom: 0.5rem;
-        }
-
-        .menu-subtitle {
-            font-size: 1rem;
-            color: #666;
-            font-weight: 300;
-        }
-
-        /* Close Button */
-        .close-menu {
-            position: absolute;
-            top: 1.5rem;
-            right: 1.5rem;
-            background: #FDB515;
-            color: white;
-            border: none;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            font-size: 1.5rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-            font-weight: 300;
-        }
-
-        .close-menu:hover {
-            background: #E6A304;
-            transform: rotate(90deg);
-        }
-
-        /* Menu Items */
-        .menu-list {
-            list-style: none;
-        }
-
-        .menu-item {
-            margin-bottom: 1rem;
-        }
-
-        .menu-link {
-            display: block;
-            padding: 1.25rem 1.5rem;
-            background: linear-gradient(135deg, #FDB515 0%, #FFA500 100%);
-            color: white;
-            text-decoration: none;
-            border-radius: 12px;
-            font-weight: 600;
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 12px rgba(253, 181, 21, 0.3);
-        }
-
-        .menu-link:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 24px rgba(253, 181, 21, 0.5);
-            background: linear-gradient(135deg, #FFA500 0%, #FF8C00 100%);
-        }
-
-        /* Expandable Pre-Departure Guide */
-        .menu-item.expandable {
-            border: 2px solid #FDB515;
-            border-radius: 12px;
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
-
-        .menu-item.expandable.expanded {
-            background: #FFF9E6;
-        }
-
-        .expandable-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1.25rem 1.5rem;
-            background: linear-gradient(135deg, #FDB515 0%, #FFA500 100%);
-            color: white;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
-        }
-
-        .expandable-header:hover {
-            background: linear-gradient(135deg, #FFA500 0%, #FF8C00 100%);
-        }
-
-        .expand-icon {
-            font-size: 0.9rem;
-            transition: transform 0.3s ease;
-        }
-
-        .menu-item.expandable.expanded .expand-icon {
-            transform: rotate(180deg);
-        }
-
-        .submenu {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.4s ease, padding 0.4s ease;
-            padding: 0 1rem;
-        }
-
-        .menu-item.expandable.expanded .submenu {
-            max-height: 400px;
-            padding: 1rem;
-        }
-
-        .submenu-list {
-            list-style: none;
-        }
-
-        .submenu-item {
-            margin-bottom: 0.5rem;
-        }
-
-        .submenu-link {
-            display: block;
-            padding: 0.75rem 1rem;
-            background: white;
-            color: #1a1a1a;
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            border: 1px solid #FDB515;
-        }
-
-        .submenu-link:hover {
-            background: #FDB515;
-            color: white;
-            transform: translateX(5px);
-        }
-
-        /* Loading Spinner */
         .loading-overlay {
             position: fixed;
             top: 0;
@@ -283,51 +94,6 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .menu-container {
-                padding: 2rem 1.5rem;
-                max-width: 95%;
-                max-height: 90vh;
-            }
-
-            .menu-title {
-                font-size: 1.5rem;
-            }
-
-            .menu-link, .expandable-header {
-                font-size: 1rem;
-                padding: 1rem 1.25rem;
-            }
-
-            .close-menu {
-                top: 1rem;
-                right: 1rem;
-                width: 35px;
-                height: 35px;
-                font-size: 1.3rem;
-            }
-        }
-
-        /* Scrollbar Styling */
-        .menu-container::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        .menu-container::-webkit-scrollbar-track {
-            background: #f1f1f1;
-            border-radius: 10px;
-        }
-
-        .menu-container::-webkit-scrollbar-thumb {
-            background: #FDB515;
-            border-radius: 10px;
-        }
-
-        .menu-container::-webkit-scrollbar-thumb:hover {
-            background: #E6A304;
-        }
     </style>
 </head>
 <body>
@@ -338,54 +104,6 @@
 
     <!-- Fullscreen Map -->
     <div id="map"></div>
-
-    <!-- Central Menu Modal -->
-    <div class="menu-overlay" id="menuOverlay">
-        <div class="menu-container">
-            <button class="close-menu" id="closeMenu" aria-label="Close menu">×</button>
-
-            <div class="menu-header">
-                <h1 class="menu-title">Discover Osijek</h1>
-                <p class="menu-subtitle">Erasmus Experience in Croatia</p>
-            </div>
-
-            <ul class="menu-list">
-                <!-- About Us -->
-                <li class="menu-item">
-                    <a href="about.html" class="menu-link">About Us</a>
-                </li>
-
-                <!-- Pre-Departure Guide (Expandable) -->
-                <li class="menu-item expandable" id="preDepartureItem">
-                    <div class="expandable-header">
-                        <span>Pre-Departure Guide</span>
-                        <span class="expand-icon">▼</span>
-                    </div>
-                    <div class="submenu">
-                        <ul class="submenu-list">
-                            <li class="submenu-item">
-                                <a href="pre-departure/destination.html" class="submenu-link">📍 Destination: Osijek</a>
-                            </li>
-                            <li class="submenu-item">
-                                <a href="pre-departure/transport.html" class="submenu-link">🚆 Getting There & Around</a>
-                            </li>
-                            <li class="submenu-item">
-                                <a href="pre-departure/accommodation.html" class="submenu-link">🏠 Accommodation & Tips</a>
-                            </li>
-                            <li class="submenu-item">
-                                <a href="pre-departure/student-life.html" class="submenu-link">🎓 Student Life</a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-
-                <!-- During Our Stay -->
-                <li class="menu-item">
-                    <a href="blog/index.html" class="menu-link">During Our Stay</a>
-                </li>
-            </ul>
-        </div>
-    </div>
 
     <!-- Leaflet JS -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
@@ -459,39 +177,19 @@
             title: 'Click to explore Osijek'
         }).addTo(map);
 
-        // Menu Elements
-        const menuOverlay = document.getElementById('menuOverlay');
-        const closeMenuBtn = document.getElementById('closeMenu');
-        const preDepartureItem = document.getElementById('preDepartureItem');
+        // Loading overlay
         const loadingOverlay = document.getElementById('loadingOverlay');
 
-        // Open Menu on Marker Click
+        // Open Home page on Marker Click
         marker.on('click', function() {
-            menuOverlay.classList.add('active');
-        });
+            // Smooth zoom animation before redirect
+            map.flyTo(OSIJEK_COORDS, 13, {
+                duration: 1.5
+            });
 
-        // Close Menu
-        closeMenuBtn.addEventListener('click', function() {
-            menuOverlay.classList.remove('active');
-        });
-
-        // Close Menu on Overlay Click
-        menuOverlay.addEventListener('click', function(e) {
-            if (e.target === menuOverlay) {
-                menuOverlay.classList.remove('active');
-            }
-        });
-
-        // Close Menu on ESC Key
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' && menuOverlay.classList.contains('active')) {
-                menuOverlay.classList.remove('active');
-            }
-        });
-
-        // Toggle Pre-Departure Guide
-        preDepartureItem.querySelector('.expandable-header').addEventListener('click', function() {
-            preDepartureItem.classList.toggle('expanded');
+            setTimeout(function() {
+                window.location.href = 'home.html';
+            }, 1600);
         });
 
         // Hide Loading Overlay
