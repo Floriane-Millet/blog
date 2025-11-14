@@ -4,9 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Discover Osijek - An Erasmus student experience in Croatia">
-    <meta name="keywords" content="Erasmus, Osijek, Croatia, Student Exchange, Study Abroad">
-    <meta name="author" content="Erasmus Blog Team">
-    <title>Home - Discover Osijek | Erasmus Experience</title>
+    <title>Discover Osijek | Erasmus Experience</title>
 
     <!-- Leaflet CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
@@ -18,129 +16,499 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="assets/css/global.css">
-    <link rel="stylesheet" href="assets/css/home.css">
+    <style>
+        /* ========================================
+           RESET & BASE
+           ======================================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            overflow: hidden;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        /* ========================================
+           FULLSCREEN MAP
+           ======================================== */
+        #map {
+            width: 100vw;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+
+        /* Custom Marker */
+        .custom-marker {
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-15px);
+            }
+        }
+
+        /* ========================================
+           CENTRAL MENU MODAL
+           ======================================== */
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .menu-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .menu-container {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 3rem;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            transform: scale(0.9);
+            transition: transform 0.4s ease;
+            max-height: 85vh;
+            overflow-y: auto;
+        }
+
+        .menu-overlay.active .menu-container {
+            transform: scale(1);
+        }
+
+        .menu-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 3px solid #FDB515;
+        }
+
+        .menu-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 0.5rem;
+        }
+
+        .menu-subtitle {
+            font-size: 1rem;
+            color: #666;
+            font-weight: 300;
+        }
+
+        /* Close Button */
+        .close-menu {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: #FDB515;
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            font-weight: 300;
+        }
+
+        .close-menu:hover {
+            background: #E6A304;
+            transform: rotate(90deg);
+        }
+
+        /* Menu Items */
+        .menu-list {
+            list-style: none;
+        }
+
+        .menu-item {
+            margin-bottom: 1rem;
+        }
+
+        .menu-link {
+            display: block;
+            padding: 1.25rem 1.5rem;
+            background: linear-gradient(135deg, #FDB515 0%, #FFA500 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(253, 181, 21, 0.3);
+        }
+
+        .menu-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(253, 181, 21, 0.5);
+            background: linear-gradient(135deg, #FFA500 0%, #FF8C00 100%);
+        }
+
+        /* Expandable Pre-Departure Guide */
+        .menu-item.expandable {
+            border: 2px solid #FDB515;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .menu-item.expandable.expanded {
+            background: #FFF9E6;
+        }
+
+        .expandable-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.25rem 1.5rem;
+            background: linear-gradient(135deg, #FDB515 0%, #FFA500 100%);
+            color: white;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+
+        .expandable-header:hover {
+            background: linear-gradient(135deg, #FFA500 0%, #FF8C00 100%);
+        }
+
+        .expand-icon {
+            font-size: 0.9rem;
+            transition: transform 0.3s ease;
+        }
+
+        .menu-item.expandable.expanded .expand-icon {
+            transform: rotate(180deg);
+        }
+
+        .submenu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.4s ease;
+            padding: 0 1rem;
+        }
+
+        .menu-item.expandable.expanded .submenu {
+            max-height: 400px;
+            padding: 1rem;
+        }
+
+        .submenu-list {
+            list-style: none;
+        }
+
+        .submenu-item {
+            margin-bottom: 0.5rem;
+        }
+
+        .submenu-link {
+            display: block;
+            padding: 0.75rem 1rem;
+            background: white;
+            color: #1a1a1a;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: 1px solid #FDB515;
+        }
+
+        .submenu-link:hover {
+            background: #FDB515;
+            color: white;
+            transform: translateX(5px);
+        }
+
+        /* Loading Spinner */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: #1a1a1a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+
+        .loading-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(253, 181, 21, 0.3);
+            border-top: 4px solid #FDB515;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .menu-container {
+                padding: 2rem 1.5rem;
+                max-width: 95%;
+                max-height: 90vh;
+            }
+
+            .menu-title {
+                font-size: 1.5rem;
+            }
+
+            .menu-link, .expandable-header {
+                font-size: 1rem;
+                padding: 1rem 1.25rem;
+            }
+
+            .close-menu {
+                top: 1rem;
+                right: 1rem;
+                width: 35px;
+                height: 35px;
+                font-size: 1.3rem;
+            }
+        }
+
+        /* Scrollbar Styling */
+        .menu-container::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .menu-container::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        .menu-container::-webkit-scrollbar-thumb {
+            background: #FDB515;
+            border-radius: 10px;
+        }
+
+        .menu-container::-webkit-scrollbar-thumb:hover {
+            background: #E6A304;
+        }
+    </style>
 </head>
 <body>
-    <!-- ========================================
-         HEADER WITH NAVIGATION
-         ======================================== -->
-    <header class="header">
-        <div class="header-container">
-            <!-- Logo -->
-            <a href="index.html" class="logo">
-                <div class="logo-icon">O</div>
-                <span>Discover Osijek</span>
-            </a>
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="spinner"></div>
+    </div>
 
-            <!-- Hamburger Menu Button (Mobile) -->
-            <button class="hamburger" aria-label="Toggle navigation menu" aria-expanded="false">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
+    <!-- Fullscreen Map -->
+    <div id="map"></div>
 
-            <!-- Navigation Menu -->
-            <nav>
-                <ul class="nav-menu">
-                    <!-- Home -->
-                    <li class="nav-item">
-                        <a href="index.html" class="nav-link active">Home</a>
-                    </li>
+    <!-- Central Menu Modal -->
+    <div class="menu-overlay" id="menuOverlay">
+        <div class="menu-container">
+            <button class="close-menu" id="closeMenu" aria-label="Close menu">×</button>
 
-                    <!-- About Us -->
-                    <li class="nav-item">
-                        <a href="about.html" class="nav-link">About Us</a>
-                    </li>
+            <div class="menu-header">
+                <h1 class="menu-title">Discover Osijek</h1>
+                <p class="menu-subtitle">Erasmus Experience in Croatia</p>
+            </div>
 
-                    <!-- Pre-Departure Guide (Dropdown) -->
-                    <li class="nav-item dropdown">
-                        <a href="#" class="nav-link">
-                            Pre-Departure Guide
-                            <span class="dropdown-arrow">▼</span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li class="dropdown-item">
-                                <a href="pre-departure/destination.html" class="dropdown-link">Destination: Osijek</a>
+            <ul class="menu-list">
+                <!-- About Us -->
+                <li class="menu-item">
+                    <a href="about.html" class="menu-link">About Us</a>
+                </li>
+
+                <!-- Pre-Departure Guide (Expandable) -->
+                <li class="menu-item expandable" id="preDepartureItem">
+                    <div class="expandable-header">
+                        <span>Pre-Departure Guide</span>
+                        <span class="expand-icon">▼</span>
+                    </div>
+                    <div class="submenu">
+                        <ul class="submenu-list">
+                            <li class="submenu-item">
+                                <a href="pre-departure/destination.html" class="submenu-link">📍 Destination: Osijek</a>
                             </li>
-                            <li class="dropdown-item">
-                                <a href="pre-departure/transport.html" class="dropdown-link">Getting There & Around</a>
+                            <li class="submenu-item">
+                                <a href="pre-departure/transport.html" class="submenu-link">🚆 Getting There & Around</a>
                             </li>
-                            <li class="dropdown-item">
-                                <a href="pre-departure/accommodation.html" class="dropdown-link">Accommodation & Practical Tips</a>
+                            <li class="submenu-item">
+                                <a href="pre-departure/accommodation.html" class="submenu-link">🏠 Accommodation & Tips</a>
                             </li>
-                            <li class="dropdown-item">
-                                <a href="pre-departure/student-life.html" class="dropdown-link">Student Life</a>
+                            <li class="submenu-item">
+                                <a href="pre-departure/student-life.html" class="submenu-link">🎓 Student Life</a>
                             </li>
                         </ul>
-                    </li>
+                    </div>
+                </li>
 
-                    <!-- During Our Stay -->
-                    <li class="nav-item">
-                        <a href="blog/index.html" class="nav-link">During Our Stay</a>
-                    </li>
-                </ul>
-            </nav>
+                <!-- During Our Stay -->
+                <li class="menu-item">
+                    <a href="blog/index.html" class="menu-link">During Our Stay</a>
+                </li>
+            </ul>
         </div>
-    </header>
+    </div>
 
-    <!-- ========================================
-         MAIN CONTENT
-         ======================================== -->
-    <main>
-        <!-- Hero Section -->
-        <section class="hero">
-            <h1>Discover Osijek – Erasmus Experience</h1>
-            <p class="hero-subtitle">Your Gateway to Croatian Student Life</p>
-            <p class="hero-description">
-                Explore our Erasmus destination: <strong>Osijek</strong>, a dynamic student city in eastern Croatia.
-                Click on the map to begin your journey and discover what makes this vibrant city the perfect choice for your international experience.
-            </p>
-            <div class="cta-text">
-                <span>👇 Click on the marker below</span>
-                <span class="cta-icon">→</span>
-            </div>
-        </section>
-
-        <!-- Map Section -->
-        <section class="map-section">
-            <div class="map-container">
-                <!-- Loading Spinner -->
-                <div class="loading-overlay" id="loadingOverlay">
-                    <div class="spinner"></div>
-                </div>
-                <!-- Leaflet Map -->
-                <div id="map"></div>
-            </div>
-        </section>
-    </main>
-
-    <!-- ========================================
-         FOOTER
-         ======================================== -->
-    <footer class="footer">
-        <div class="footer-content">
-            <p><strong>Discover Osijek</strong> – Erasmus Experience 2024</p>
-            <p>Explore, Learn, Experience</p>
-            <div class="footer-links">
-                <a href="about.html" class="footer-link">About</a>
-                <a href="blog/index.html" class="footer-link">Blog</a>
-                <a href="#" class="footer-link">Contact</a>
-                <a href="#" class="footer-link">Resources</a>
-            </div>
-        </div>
-    </footer>
-
-    <!-- ========================================
-         JAVASCRIPT
-         ======================================== -->
     <!-- Leaflet JS -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
             integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
             crossorigin=""></script>
 
     <!-- Custom JavaScript -->
-    <script src="assets/js/script.js"></script>
+    <script>
+        // Configuration
+        const OSIJEK_COORDS = [45.554962, 18.695514];
+        const EUROPE_CENTER = [50.0, 10.0];
+        const EUROPE_ZOOM = 4;
+
+        // Initialize Map
+        const map = L.map('map', {
+            center: EUROPE_CENTER,
+            zoom: EUROPE_ZOOM,
+            zoomControl: true,
+            scrollWheelZoom: true
+        });
+
+        // Add OpenStreetMap tiles
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors',
+            maxZoom: 19,
+            minZoom: 3
+        }).addTo(map);
+
+        // Custom Marker Icon
+        const customIcon = L.divIcon({
+            className: 'custom-marker',
+            html: `
+                <div style="
+                    position: relative;
+                    width: 50px;
+                    height: 50px;
+                ">
+                    <div style="
+                        position: absolute;
+                        width: 50px;
+                        height: 50px;
+                        background: linear-gradient(135deg, #FDB515, #FF8C00);
+                        border-radius: 50% 50% 50% 0;
+                        transform: rotate(-45deg);
+                        box-shadow: 0 6px 20px rgba(253, 181, 21, 0.6);
+                    "></div>
+                    <div style="
+                        position: absolute;
+                        top: 10px;
+                        left: 10px;
+                        width: 30px;
+                        height: 30px;
+                        background: white;
+                        border-radius: 50%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-size: 18px;
+                        z-index: 1;
+                    ">📍</div>
+                </div>
+            `,
+            iconSize: [50, 50],
+            iconAnchor: [25, 50],
+            popupAnchor: [0, -50]
+        });
+
+        // Add Marker
+        const marker = L.marker(OSIJEK_COORDS, {
+            icon: customIcon,
+            title: 'Click to explore Osijek'
+        }).addTo(map);
+
+        // Menu Elements
+        const menuOverlay = document.getElementById('menuOverlay');
+        const closeMenuBtn = document.getElementById('closeMenu');
+        const preDepartureItem = document.getElementById('preDepartureItem');
+        const loadingOverlay = document.getElementById('loadingOverlay');
+
+        // Open Menu on Marker Click
+        marker.on('click', function() {
+            menuOverlay.classList.add('active');
+        });
+
+        // Close Menu
+        closeMenuBtn.addEventListener('click', function() {
+            menuOverlay.classList.remove('active');
+        });
+
+        // Close Menu on Overlay Click
+        menuOverlay.addEventListener('click', function(e) {
+            if (e.target === menuOverlay) {
+                menuOverlay.classList.remove('active');
+            }
+        });
+
+        // Close Menu on ESC Key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && menuOverlay.classList.contains('active')) {
+                menuOverlay.classList.remove('active');
+            }
+        });
+
+        // Toggle Pre-Departure Guide
+        preDepartureItem.querySelector('.expandable-header').addEventListener('click', function() {
+            preDepartureItem.classList.toggle('expanded');
+        });
+
+        // Hide Loading Overlay
+        map.whenReady(function() {
+            setTimeout(function() {
+                loadingOverlay.classList.add('hidden');
+            }, 500);
+        });
+
+        // Responsive Zoom
+        if (window.innerWidth < 768) {
+            map.setZoom(3.5);
+        }
+
+        window.addEventListener('resize', function() {
+            map.invalidateSize();
+        });
+    </script>
 </body>
 </html>
