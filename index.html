@@ -1,1 +1,651 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Discover Osijek - An Erasmus student experience in Croatia">
+    <title>Discover Osijek – Erasmus Experience</title>
 
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+          crossorigin=""/>
+
+    <!-- Google Fonts - Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* ========================================
+           VARIABLES CSS ET RESET
+           ======================================== */
+        :root {
+            --primary-blue: #4A90E2;
+            --light-blue: #E8F4F8;
+            --dark-blue: #2C5F8D;
+            --white: #FFFFFF;
+            --gray-light: #F5F7FA;
+            --gray-medium: #E1E8ED;
+            --gray-dark: #657786;
+            --text-primary: #14171A;
+            --text-secondary: #5B6F82;
+            --shadow: rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: linear-gradient(135deg, var(--light-blue) 0%, var(--white) 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ========================================
+           HEADER
+           ======================================== */
+        .header {
+            background: var(--white);
+            box-shadow: 0 2px 8px var(--shadow);
+            padding: 1.5rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            animation: slideDown 0.5s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: var(--transition);
+        }
+
+        .logo:hover {
+            color: var(--dark-blue);
+            transform: translateY(-2px);
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--dark-blue));
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+        }
+
+        .nav-link:hover {
+            color: var(--primary-blue);
+            background: var(--light-blue);
+        }
+
+        /* ========================================
+           HERO SECTION
+           ======================================== */
+        .hero {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem 2rem;
+            text-align: center;
+            animation: fadeIn 0.8s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--dark-blue);
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto 1rem;
+            font-weight: 300;
+        }
+
+        .hero-description {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            max-width: 650px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        .cta-text {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            padding: 0.75rem 1.5rem;
+            background: linear-gradient(135deg, var(--primary-blue), var(--dark-blue));
+            color: white;
+            border-radius: 50px;
+            font-weight: 600;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                box-shadow: 0 0 0 0 rgba(74, 144, 226, 0.4);
+            }
+            50% {
+                box-shadow: 0 0 0 10px rgba(74, 144, 226, 0);
+            }
+        }
+
+        .cta-icon {
+            display: inline-block;
+            transition: var(--transition);
+        }
+
+        .cta-text:hover .cta-icon {
+            transform: translateX(5px);
+        }
+
+        /* ========================================
+           MAP CONTAINER
+           ======================================== */
+        .map-section {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        .map-container {
+            width: 100%;
+            height: 600px;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 8px 24px var(--shadow);
+            position: relative;
+            animation: scaleIn 0.6s ease 0.3s both;
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        #map {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Custom marker popup styling */
+        .leaflet-popup-content-wrapper {
+            border-radius: 12px;
+            box-shadow: 0 4px 12px var(--shadow);
+        }
+
+        .leaflet-popup-content {
+            margin: 1rem;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .popup-content h3 {
+            color: var(--primary-blue);
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .popup-content p {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .popup-button {
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            background: linear-gradient(135deg, var(--primary-blue), var(--dark-blue));
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .popup-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(74, 144, 226, 0.4);
+        }
+
+        /* ========================================
+           FOOTER
+           ======================================== */
+        .footer {
+            background: var(--white);
+            padding: 2rem 0;
+            margin-top: 4rem;
+            text-align: center;
+            box-shadow: 0 -2px 8px var(--shadow);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            color: var(--text-secondary);
+        }
+
+        .footer-content p {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-link:hover {
+            color: var(--primary-blue);
+        }
+
+        /* ========================================
+           RESPONSIVE DESIGN
+           ======================================== */
+        @media (max-width: 768px) {
+            .header-container {
+                padding: 0 1rem;
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .hero {
+                padding: 2rem 1rem 1rem;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+
+            .hero-description {
+                font-size: 0.95rem;
+            }
+
+            .map-section {
+                padding: 0 1rem;
+            }
+
+            .map-container {
+                height: 450px;
+                border-radius: 12px;
+            }
+
+            .logo {
+                font-size: 1.3rem;
+            }
+
+            .footer-links {
+                gap: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 1.75rem;
+            }
+
+            .map-container {
+                height: 400px;
+            }
+
+            .cta-text {
+                font-size: 0.9rem;
+                padding: 0.6rem 1.2rem;
+            }
+        }
+
+        /* ========================================
+           LOADING STATE
+           ======================================== */
+        .loading-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 999;
+            transition: opacity 0.5s ease;
+        }
+
+        .loading-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid var(--gray-medium);
+            border-top: 4px solid var(--primary-blue);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- ========================================
+         HEADER
+         ======================================== -->
+    <header class="header">
+        <div class="header-container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">O</div>
+                <span>Discover Osijek</span>
+            </a>
+            <nav>
+                <a href="destination.html" class="nav-link">Destination</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ========================================
+         HERO SECTION
+         ======================================== -->
+    <section class="hero">
+        <h1>Discover Osijek – Erasmus Experience</h1>
+        <p class="hero-subtitle">Your Gateway to Croatian Student Life</p>
+        <p class="hero-description">
+            Explore our Erasmus destination: <strong>Osijek</strong>, a dynamic student city in eastern Croatia.
+            Click on the map to begin your journey and discover what makes this vibrant city the perfect choice for your international experience.
+        </p>
+        <div class="cta-text">
+            <span>👇 Click on the marker below</span>
+            <span class="cta-icon">→</span>
+        </div>
+    </section>
+
+    <!-- ========================================
+         MAP SECTION
+         ======================================== -->
+    <section class="map-section">
+        <div class="map-container">
+            <!-- Loading spinner -->
+            <div class="loading-overlay" id="loadingOverlay">
+                <div class="spinner"></div>
+            </div>
+            <!-- Carte Leaflet -->
+            <div id="map"></div>
+        </div>
+    </section>
+
+    <!-- ========================================
+         FOOTER
+         ======================================== -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p><strong>Discover Osijek</strong> – Erasmus Experience 2024</p>
+            <p>Explore, Learn, Experience</p>
+            <div class="footer-links">
+                <a href="#" class="footer-link">About</a>
+                <a href="#" class="footer-link">Contact</a>
+                <a href="#" class="footer-link">Resources</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========================================
+         LEAFLET JAVASCRIPT
+         ======================================== -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+            crossorigin=""></script>
+
+    <script>
+        // ========================================
+        // CONFIGURATION
+        // ========================================
+        const OSIJEK_COORDS = [45.554962, 18.695514];
+        const EUROPE_CENTER = [50.0, 10.0];
+        const EUROPE_ZOOM = 4;
+
+        // ========================================
+        // INITIALISATION DE LA CARTE
+        // ========================================
+        document.addEventListener('DOMContentLoaded', function() {
+            // Création de la carte centrée sur l'Europe
+            const map = L.map('map', {
+                center: EUROPE_CENTER,
+                zoom: EUROPE_ZOOM,
+                zoomControl: true,
+                scrollWheelZoom: true,
+                doubleClickZoom: true,
+                touchZoom: true
+            });
+
+            // Ajout des tuiles OpenStreetMap
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+                maxZoom: 19,
+                minZoom: 3
+            }).addTo(map);
+
+            // ========================================
+            // CRÉATION DU MARQUEUR PERSONNALISÉ
+            // ========================================
+            const customIcon = L.divIcon({
+                className: 'custom-marker',
+                html: `
+                    <div style="
+                        position: relative;
+                        width: 40px;
+                        height: 40px;
+                    ">
+                        <div style="
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+                            width: 40px;
+                            height: 40px;
+                            background: linear-gradient(135deg, #4A90E2, #2C5F8D);
+                            border-radius: 50% 50% 50% 0;
+                            transform: rotate(-45deg);
+                            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+                            animation: bounce 2s infinite;
+                        "></div>
+                        <div style="
+                            position: absolute;
+                            top: 8px;
+                            left: 8px;
+                            width: 24px;
+                            height: 24px;
+                            background: white;
+                            border-radius: 50%;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            font-weight: bold;
+                            color: #4A90E2;
+                            font-size: 14px;
+                            z-index: 1;
+                        ">📍</div>
+                    </div>
+                    <style>
+                        @keyframes bounce {
+                            0%, 100% {
+                                transform: rotate(-45deg) translateY(0);
+                            }
+                            50% {
+                                transform: rotate(-45deg) translateY(-10px);
+                            }
+                        }
+                    </style>
+                `,
+                iconSize: [40, 40],
+                iconAnchor: [20, 40],
+                popupAnchor: [0, -40]
+            });
+
+            // Ajout du marqueur sur Osijek
+            const marker = L.marker(OSIJEK_COORDS, {
+                icon: customIcon,
+                title: 'Osijek, Croatia',
+                riseOnHover: true
+            }).addTo(map);
+
+            // ========================================
+            // POPUP AVEC CONTENU PERSONNALISÉ
+            // ========================================
+            const popupContent = `
+                <div class="popup-content">
+                    <h3>🎓 Osijek, Croatia</h3>
+                    <p>
+                        A vibrant student city on the Drava River,
+                        perfect for your Erasmus adventure!
+                    </p>
+                    <a href="destination.html" class="popup-button">
+                        Explore Destination →
+                    </a>
+                </div>
+            `;
+
+            marker.bindPopup(popupContent, {
+                maxWidth: 300,
+                className: 'custom-popup'
+            });
+
+            // ========================================
+            // ÉVÉNEMENTS INTERACTIFS
+            // ========================================
+
+            // Clic sur le marqueur : redirection vers destination.html
+            marker.on('click', function() {
+                // Animation de zoom avant la redirection
+                map.flyTo(OSIJEK_COORDS, 13, {
+                    duration: 1.5
+                });
+
+                // Redirection après l'animation
+                setTimeout(function() {
+                    window.location.href = 'destination.html';
+                }, 1600);
+            });
+
+            // Effet hover sur le marqueur
+            marker.on('mouseover', function() {
+                this.openPopup();
+            });
+
+            // ========================================
+            // MASQUER LE SPINNER DE CHARGEMENT
+            // ========================================
+            map.whenReady(function() {
+                setTimeout(function() {
+                    document.getElementById('loadingOverlay').classList.add('hidden');
+                }, 500);
+            });
+
+            // ========================================
+            // RESPONSIVE : AJUSTER LE ZOOM SUR MOBILE
+            // ========================================
+            if (window.innerWidth < 768) {
+                map.setZoom(3.5);
+            }
+
+            // Ajuster la carte lors du redimensionnement
+            window.addEventListener('resize', function() {
+                map.invalidateSize();
+                if (window.innerWidth < 768) {
+                    map.setView(EUROPE_CENTER, 3.5);
+                } else {
+                    map.setView(EUROPE_CENTER, EUROPE_ZOOM);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
