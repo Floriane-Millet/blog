@@ -13,6 +13,381 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="styles.css">
+    
+    <style>
+        /* Additional styles for the enhanced layout */
+        .section-visual {
+            position: relative;
+            padding: 0;
+            margin: 0;
+            overflow: hidden;
+        }
+        
+        .split-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 600px;
+        }
+        
+        .split-content {
+            padding: 5rem 4rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: white;
+        }
+        
+        .split-image {
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        
+        .split-image::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255, 107, 53, 0.2), rgba(157, 78, 221, 0.2));
+        }
+        
+        .split-content h2 {
+            font-size: 3rem;
+            font-weight: 900;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+        }
+        
+        .split-content .emoji {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+        
+        .feature-grid-4 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0;
+            margin: 0;
+        }
+        
+        .feature-card-full {
+            padding: 3rem 2rem;
+            text-align: center;
+            position: relative;
+            transition: all 0.4s ease;
+            min-height: 350px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .feature-card-full::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.7);
+            transition: all 0.4s ease;
+        }
+        
+        .feature-card-full:hover::before {
+            background: rgba(0, 0, 0, 0.5);
+        }
+        
+        .feature-card-full:hover {
+            transform: scale(1.05);
+            z-index: 2;
+        }
+        
+        .feature-content {
+            position: relative;
+            z-index: 2;
+            color: white;
+        }
+        
+        .feature-card-full .emoji {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+        }
+        
+        .feature-card-full h3 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: white;
+        }
+        
+        .feature-card-full p {
+            font-size: 1rem;
+            color: rgba(255,255,255,0.9);
+            line-height: 1.6;
+        }
+        
+        .full-width-cta {
+            background: linear-gradient(135deg, var(--accent-orange), var(--accent-pink));
+            color: white;
+            padding: 6rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .full-width-cta::before {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            top: -100px;
+            right: -100px;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .full-width-cta::after {
+            content: '';
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            bottom: -50px;
+            left: -50px;
+            animation: float 8s ease-in-out infinite reverse;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .full-width-cta h2 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .full-width-cta p {
+            font-size: 1.5rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.95;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .cta-button-large {
+            display: inline-block;
+            padding: 1.5rem 4rem;
+            background: white;
+            color: var(--accent-orange);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 800;
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+            position: relative;
+            z-index: 2;
+        }
+        
+        .cta-button-large:hover {
+            transform: translateY(-4px) scale(1.05);
+            box-shadow: 0 12px 32px rgba(0,0,0,0.3);
+        }
+        
+        .stats-section {
+            background: var(--black);
+            color: white;
+            padding: 5rem 2rem;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--accent-orange);
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            font-size: 0.95rem;
+            font-weight: 600;
+            opacity: 0.9;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .numbered-list {
+            counter-reset: item;
+            list-style: none;
+            padding: 0;
+            margin: 2rem 0;
+        }
+        
+        .numbered-list li {
+            counter-increment: item;
+            padding: 2rem 2rem 2rem 5rem;
+            margin-bottom: 1.5rem;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 16px var(--shadow);
+            position: relative;
+            transition: all 0.3s ease;
+            border-left: 5px solid var(--accent-orange);
+        }
+        
+        .numbered-list li:hover {
+            transform: translateX(8px);
+            box-shadow: 0 6px 20px var(--shadow-heavy);
+        }
+        
+        .numbered-list li::before {
+            content: counter(item);
+            position: absolute;
+            left: 1.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--accent-orange), var(--accent-pink));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 900;
+            font-size: 1.2rem;
+        }
+        
+        .food-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .food-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 8px 24px var(--shadow);
+            border: 3px solid var(--black);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .food-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(90deg, var(--accent-orange), var(--accent-pink));
+        }
+        
+        .food-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 16px 40px var(--shadow-heavy);
+        }
+        
+        .food-card .emoji {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .food-card h3 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--accent-orange);
+            margin-bottom: 1rem;
+        }
+        
+        .food-card p {
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+        
+        @media (max-width: 1024px) {
+            .split-section {
+                grid-template-columns: 1fr;
+            }
+            
+            .split-image {
+                min-height: 400px;
+            }
+            
+            .feature-grid-4 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .food-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .slide-content h1 {
+                font-size: 2.5rem;
+            }
+            
+            .slide-content p {
+                font-size: 1.1rem;
+            }
+            
+            .split-content {
+                padding: 3rem 2rem;
+            }
+            
+            .split-content h2 {
+                font-size: 2rem;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .feature-grid-4 {
+                grid-template-columns: 1fr;
+            }
+            
+            .full-width-cta h2 {
+                font-size: 2rem;
+            }
+            
+            .full-width-cta p {
+                font-size: 1.1rem;
+            }
+            
+            .numbered-list li {
+                padding: 1.5rem 1.5rem 1.5rem 4rem;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- HEADER -->
@@ -35,7 +410,7 @@
                         <a href="../about/index.html" class="nav-link">About Us</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a href="#" class="nav-link">
+                        <a href="#" class="nav-link active">
                             Pre-Departure Guide
                             <span class="dropdown-arrow">▼</span>
                         </a>
@@ -114,109 +489,235 @@
         </div>
     </section>
 
-    <!-- MAIN CONTENT -->
-    <main>
-        <!-- Content Section -->
-        <article class="content-section">
-            <h1>Destination: Osijek</h1>
+    <!-- STATS SECTION -->
+    <section class="stats-section">
+        <div class="stats-grid">
+            <div class="stat-item">
+                <span class="stat-number">100K</span>
+                <span class="stat-label">Population</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">15K+</span>
+                <span class="stat-label">Students</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">17+</span>
+                <span class="stat-label">Parks</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">18th</span>
+                <span class="stat-label">Century Fortress</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">4th</span>
+                <span class="stat-label">Largest City</span>
+            </div>
+        </div>
+    </section>
 
-            <!-- Introduction -->
-            <p>
-                Welcome to Osijek, the vibrant heart of the Slavonia region in Eastern Croatia.
-                As the country's fourth-largest city, Osijek is a hidden gem nestled on the banks
-                of the Drava River. This page is our guide to the city we'll call home for the next
-                six months, from its historic streets to its student-led culture.
-            </p>
-
-            <!-- Section 1: La Ville -->
-            <h2>Osijek at a Glance</h2>
-
-            <h3>Key Information</h3>
-            <ul>
-                <li><strong>Location:</strong> Eastern Croatia, Slavonia Region</li>
-                <li><strong>Population:</strong> Approx. 100,000 inhabitants</li>
-                <li><strong>Language:</strong> Croatian (English widely spoken in academic circles)</li>
-                <li><strong>Currency:</strong> Euro (€)</li>
-                <li><strong>Climate:</strong> Continental (hot summers, cold winters)</li>
-            </ul>
-
-            <h3>A City of Parks and History</h3>
-            <p>
-                Osijek is known as Croatia's 'greenest city', with over 17 parks and the beautiful
-                Drava river promenade. Its identity is split between the stunning 18th-century baroque
-                fortress, Tvrđa, and a modern, university-driven city center. It's this mix of history
-                and nature that makes it unique.
-            </p>
-
-            <!-- Section 2: L'Université -->
-            <h2>Our Host: Josip Juraj Strossmayer University (UNIOS)</h2>
-            <p>
-                We will be studying at the Josip Juraj Strossmayer University of Osijek. Founded in 1975,
-                it's a major academic and research hub for the region. We'll be part of a student body of
-                over 15,000, spread across various faculties. We are looking forward to discovering the
-                campus and integrating into this vibrant academic community.
-            </p>
-
-            <!-- University logo placeholder -->
-            <div class="highlight-box">
-                <h4>🎓 University Quick Facts</h4>
-                <p>
-                    The university consists of 11 faculties and 3 university departments offering
-                    programs in arts, sciences, medicine, economics, and more. International students
-                    are warmly welcomed with dedicated support services.
+    <!-- INTRO SPLIT SECTION -->
+    <section class="section-visual">
+        <div class="split-section">
+            <div class="split-content">
+                <span class="emoji">🏛️</span>
+                <h2>Destination: Osijek</h2>
+                <p style="font-size: 1.2rem; line-height: 1.8; color: var(--text-secondary);">
+                    Welcome to Osijek, the vibrant heart of the Slavonia region in Eastern Croatia. 
+                    As the country's fourth-largest city, Osijek is a hidden gem nestled on the banks 
+                    of the Drava River.
+                </p>
+                <p style="font-size: 1.1rem; line-height: 1.8; color: var(--text-secondary); margin-top: 1.5rem;">
+                    This page is our guide to the city we'll call home for the next six months, 
+                    from its historic streets to its student-led culture.
                 </p>
             </div>
+            <div class="split-image" style="background-image: url('https://images.unsplash.com/photo-1555881295-4b1f3a3c8c52?w=800&h=600&fit=crop');"></div>
+        </div>
+    </section>
 
-            <!-- Section 3: Les Incontournables -->
-            <h2>Must-See Sights & Tastes</h2>
+    <!-- KEY INFO CARDS -->
+    <section class="section-visual">
+        <div class="feature-grid-4">
+            <div class="feature-card-full" style="background-image: url('https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=600&h=400&fit=crop');">
+                <div class="feature-content">
+                    <span class="emoji">📍</span>
+                    <h3>Location</h3>
+                    <p>Eastern Croatia, Slavonia Region on the Drava River</p>
+                </div>
+            </div>
+            <div class="feature-card-full" style="background-image: url('https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07?w=600&h=400&fit=crop');">
+                <div class="feature-content">
+                    <span class="emoji">🌡️</span>
+                    <h3>Climate</h3>
+                    <p>Continental climate with hot summers and cold winters</p>
+                </div>
+            </div>
+            <div class="feature-card-full" style="background-image: url('https://images.unsplash.com/photo-1587894380093-c2bdfad08af0?w=600&h=400&fit=crop');">
+                <div class="feature-content">
+                    <span class="emoji">💶</span>
+                    <h3>Currency</h3>
+                    <p>Euro (€) - Croatia joined the Eurozone in 2023</p>
+                </div>
+            </div>
+            <div class="feature-card-full" style="background-image: url('https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=600&h=400&fit=crop');">
+                <div class="feature-content">
+                    <span class="emoji">🗣️</span>
+                    <h3>Language</h3>
+                    <p>Croatian (English widely spoken in academic circles)</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-            <h3>Top 5 Interesting Sites</h3>
-            <ol>
-                <li><strong>Tvrđa:</strong> The historic baroque fortress, center of the city's nightlife and culture.</li>
-                <li><strong>The Drava Promenade (Promenada):</strong> The famous riverside walk, perfect for cycling or relaxing.</li>
-                <li><strong>Co-cathedral of St. Peter and St. Paul:</strong> The iconic, towering neo-Gothic church.</li>
-                <li><strong>Kopački Rit Nature Park:</strong> A massive wetland and nature reserve just outside the city (a "must-do" day trip).</li>
-                <li><strong>The Pedestrian Bridge:</strong> The city's modern landmark, beautifully lit at night.</li>
-            </ol>
+    <!-- CITY CHARACTER SECTION -->
+    <section class="section-visual">
+        <div class="split-section">
+            <div class="split-image" style="background-image: url('https://images.unsplash.com/photo-1519501025264-65ba15a82390?w=800&h=600&fit=crop');"></div>
+            <div class="split-content" style="background: linear-gradient(135deg, var(--light-yellow), white);">
+                <span class="emoji">🌳</span>
+                <h2>A City of Parks and History</h2>
+                <p style="font-size: 1.1rem; line-height: 1.8; color: var(--text-secondary);">
+                    Osijek is known as Croatia's <strong style="color: var(--accent-orange);">'greenest city'</strong>, 
+                    with over 17 parks and the beautiful Drava river promenade.
+                </p>
+                <p style="font-size: 1.1rem; line-height: 1.8; color: var(--text-secondary); margin-top: 1.5rem;">
+                    Its identity is split between the stunning 18th-century baroque fortress, Tvrđa, 
+                    and a modern, university-driven city center. It's this mix of history and nature 
+                    that makes it unique.
+                </p>
+            </div>
+        </div>
+    </section>
 
-            <h3>A Taste of Slavonia (Gastronomy)</h3>
-            <p>
-                Slavonian cuisine is known for being hearty, rich, and (often) spicy. We can't wait to try:
+    <!-- UNIVERSITY SECTION -->
+    <section class="section-visual">
+        <div class="split-section">
+            <div class="split-content" style="background: var(--gray-light);">
+                <span class="emoji">🎓</span>
+                <h2>Our Host: UNIOS</h2>
+                <p style="font-size: 1.1rem; line-height: 1.8; color: var(--text-secondary);">
+                    We will be studying at the <strong style="color: var(--accent-orange);">Josip Juraj Strossmayer University of Osijek</strong>. 
+                    Founded in 1975, it's a major academic and research hub for the region.
+                </p>
+                <div class="highlight-box" style="margin-top: 2rem;">
+                    <h4>🎓 University Quick Facts</h4>
+                    <ul style="margin: 1rem 0; padding-left: 1.5rem;">
+                        <li><strong>15,000+ students</strong> across the campus</li>
+                        <li><strong>11 faculties</strong> and 3 university departments</li>
+                        <li>Programs in <strong>arts, sciences, medicine, economics</strong>, and more</li>
+                        <li>Dedicated support services for <strong>international students</strong></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="split-image" style="background-image: url('https://images.unsplash.com/photo-1562774053-701939374585?w=800&h=600&fit=crop'); background-position: center 40%;"></div>
+        </div>
+    </section>
+
+    <!-- TOP 5 SIGHTS -->
+    <section style="padding: 6rem 2rem; background: white;">
+        <div style="max-width: 900px; margin: 0 auto;">
+            <h2 style="text-align: center; font-size: 3.5rem; font-weight: 900; margin-bottom: 1rem; color: var(--text-primary);">🏰 Must-See Sights</h2>
+            <p style="text-align: center; font-size: 1.2rem; color: var(--text-secondary); margin-bottom: 4rem;">
+                The top 5 places you absolutely need to visit in Osijek
             </p>
-            <ul>
-                <li><strong>Kulen:</strong> The most famous local product, a protected spicy sausage.</li>
-                <li><strong>Fiš Paprikaš:</strong> A rich and spicy fish stew, a regional specialty.</li>
-                <li><strong>Local Wines:</strong> The area is known for its white wines, especially Graševina.</li>
-                <li><strong>Rakija:</strong> The famous fruit brandy (to be enjoyed responsibly!).</li>
-            </ul>
+            
+            <ol class="numbered-list">
+                <li>
+                    <strong style="font-size: 1.3rem; color: var(--accent-orange);">Tvrđa</strong><br>
+                    <span style="color: var(--text-secondary);">The historic baroque fortress, center of the city's nightlife and culture.</span>
+                </li>
+                <li>
+                    <strong style="font-size: 1.3rem; color: var(--accent-orange);">The Drava Promenade</strong><br>
+                    <span style="color: var(--text-secondary);">The famous riverside walk (Promenada), perfect for cycling or relaxing.</span>
+                </li>
+                <li>
+                    <strong style="font-size: 1.3rem; color: var(--accent-orange);">Co-cathedral of St. Peter and St. Paul</strong><br>
+                    <span style="color: var(--text-secondary);">The iconic, towering neo-Gothic church dominating the skyline.</span>
+                </li>
+                <li>
+                    <strong style="font-size: 1.3rem; color: var(--accent-orange);">Kopački Rit Nature Park</strong><br>
+                    <span style="color: var(--text-secondary);">A massive wetland and nature reserve just outside the city (a "must-do" day trip).</span>
+                </li>
+                <li>
+                    <strong style="font-size: 1.3rem; color: var(--accent-orange);">The Pedestrian Bridge</strong><br>
+                    <span style="color: var(--text-secondary);">The city's modern landmark, beautifully lit at night.</span>
+                </li>
+            </ol>
+        </div>
+    </section>
 
-            <!-- Section 4: Sources -->
-            <h2>Sources</h2>
-            <p>
+    <!-- GASTRONOMY SECTION -->
+    <section style="padding: 6rem 2rem; background: var(--gray-light);">
+        <div style="max-width: 1100px; margin: 0 auto;">
+            <h2 style="text-align: center; font-size: 3.5rem; font-weight: 900; margin-bottom: 1rem; color: var(--text-primary);">🍴 A Taste of Slavonia</h2>
+            <p style="text-align: center; font-size: 1.2rem; color: var(--text-secondary); margin-bottom: 4rem;">
+                Slavonian cuisine is known for being hearty, rich, and often spicy. Here's what we can't wait to try:
+            </p>
+            
+            <div class="food-grid">
+                <div class="food-card">
+                    <span class="emoji">🌶️</span>
+                    <h3>Kulen</h3>
+                    <p>The most famous local product, a protected spicy sausage that's a point of regional pride. Perfect with cheese and wine!</p>
+                </div>
+                
+                <div class="food-card">
+                    <span class="emoji">🐟</span>
+                    <h3>Fiš Paprikaš</h3>
+                    <p>A rich and spicy fish stew, a regional specialty cooked in a traditional copper pot. A must-try dish!</p>
+                </div>
+                
+                <div class="food-card">
+                    <span class="emoji">🍷</span>
+                    <h3>Local Wines</h3>
+                    <p>The area is known for its excellent white wines, especially Graševina, perfect for pairing with local dishes.</p>
+                </div>
+                
+                <div class="food-card">
+                    <span class="emoji">🥃</span>
+                    <h3>Rakija</h3>
+                    <p>The famous Croatian fruit brandy. A social ritual and tradition (to be enjoyed responsibly!).</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA SECTION -->
+    <section class="full-width-cta">
+        <h2>Ready to Explore?</h2>
+        <p>Learn how to get there and move around the city</p>
+        <a href="../transport/index.html" class="cta-button-large">Getting There & Around →</a>
+    </section>
+
+    <!-- SOURCES SECTION -->
+    <section style="padding: 4rem 2rem; background: white;">
+        <div style="max-width: 800px; margin: 0 auto;">
+            <h2 style="font-size: 2rem; font-weight: 800; margin-bottom: 2rem; text-align: center;">📚 Sources</h2>
+            <p style="color: var(--text-secondary); font-size: 1.1rem; line-height: 1.8; text-align: center; margin-bottom: 2rem;">
                 All information on this page was gathered before our departure. We consulted the following sources:
             </p>
-            <ul>
-                <li>Osijek-Baranja County Tourist Board (<a href="https://www.visitosijek.hr" target="_blank" rel="noopener">www.visitosijek.hr</a>)</li>
-                <li>Josip Juraj Strossmayer University official website (<a href="https://www.unios.hr" target="_blank" rel="noopener">www.unios.hr</a>)</li>
-                <li>Wikipedia page for Osijek (<a href="https://en.wikipedia.org/wiki/Osijek" target="_blank" rel="noopener">en.wikipedia.org/wiki/Osijek</a>)</li>
-                <li>Lonely Planet Croatia Travel Guide</li>
+            <ul style="list-style: none; padding: 0; max-width: 600px; margin: 0 auto;">
+                <li style="padding: 1rem; margin-bottom: 1rem; background: var(--gray-light); border-radius: 12px; border-left: 4px solid var(--accent-orange);">
+                    <strong>Osijek-Baranja County Tourist Board</strong> (<a href="https://www.visitosijek.hr" target="_blank" rel="noopener" style="color: var(--accent-orange);">www.visitosijek.hr</a>)
+                </li>
+                <li style="padding: 1rem; margin-bottom: 1rem; background: var(--gray-light); border-radius: 12px; border-left: 4px solid var(--accent-pink);">
+                    <strong>UNIOS</strong> - Josip Juraj Strossmayer University (<a href="https://www.unios.hr" target="_blank" rel="noopener" style="color: var(--accent-orange);">www.unios.hr</a>)
+                </li>
+                <li style="padding: 1rem; margin-bottom: 1rem; background: var(--gray-light); border-radius: 12px; border-left: 4px solid var(--accent-purple);">
+                    <strong>Wikipedia</strong> - Osijek (<a href="https://en.wikipedia.org/wiki/Osijek" target="_blank" rel="noopener" style="color: var(--accent-orange);">en.wikipedia.org/wiki/Osijek</a>)
+                </li>
+                <li style="padding: 1rem; background: var(--gray-light); border-radius: 12px; border-left: 4px solid var(--accent-green);">
+                    <strong>Lonely Planet</strong> - Croatia Travel Guide
+                </li>
             </ul>
-
-            <a href="../transport/index.html" class="cta-button">Next: Getting There & Around →</a>
-        </article>
-    </main>
+        </div>
+    </section>
 
     <!-- FOOTER -->
     <footer class="footer">
         <div class="footer-content">
-            <p><strong>Discover Osijek</strong> — Erasmus Experience 2024</p>
+            <p><strong>Discover Osijek</strong> – Erasmus Experience 2024</p>
             <p>Explore, Learn, Experience</p>
-            <div class="footer-links">
-                <a href="../about/index.html" class="footer-link">About</a>
-                <a href="../blog-listing/index.html" class="footer-link">Blog</a>
-                <a href="#" class="footer-link">Contact</a>
-                <a href="#" class="footer-link">Resources</a>
-            </div>
         </div>
     </footer>
 
