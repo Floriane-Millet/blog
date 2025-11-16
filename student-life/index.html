@@ -9,7 +9,7 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="styles.css">
@@ -62,268 +62,172 @@
         </div>
     </header>
 
+    <!-- HERO SLIDER -->
+    <section class="hero-slider">
+        <div class="slider-container">
+            <!-- Slide 1 -->
+            <div class="slide active">
+                <img src="student-campus.jpg" alt="Students on campus">
+                <div class="slide-overlay"></div>
+            </div>
+
+            <!-- Slide 2 -->
+            <div class="slide">
+                <img src="student-party.jpg" alt="Student party">
+                <div class="slide-overlay"></div>
+            </div>
+
+            <!-- Slide 3 -->
+            <div class="slide">
+                <img src="student-tvrdja.jpg" alt="Students in Tvrđa">
+                <div class="slide-overlay"></div>
+            </div>
+
+            <!-- Slide 4 -->
+            <div class="slide">
+                <img src="student-sports.jpg" alt="Student sports">
+                <div class="slide-overlay"></div>
+            </div>
+        </div>
+
+        <!-- Contenu fixe (titre qui ne change pas) -->
+        <div class="slide-content">
+            <h1>Student Life in Osijek</h1>
+            <p>Experience the vibrant university atmosphere</p>
+        </div>
+
+        <!-- Navigation Arrows -->
+        <button class="slider-nav prev" aria-label="Previous slide">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+        </button>
+        <button class="slider-nav next" aria-label="Next slide">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+        </button>
+
+        <!-- Dots Navigation -->
+        <div class="slider-dots">
+            <button class="dot active" aria-label="Slide 1"></button>
+            <button class="dot" aria-label="Slide 2"></button>
+            <button class="dot" aria-label="Slide 3"></button>
+            <button class="dot" aria-label="Slide 4"></button>
+        </div>
+    </section>
+
     <!-- MAIN CONTENT -->
     <main>
-        <!-- Hero Section -->
-        <section class="page-hero">
-            <h1>🎓 Student Life</h1>
-            <p>Experience the vibrant student culture, events, and activities in Osijek</p>
-        </section>
-
         <!-- Content Section -->
         <article class="content-section">
-            <h2>Welcome to Osijek Student Life!</h2>
+            <h1>Student Life in Osijek</h1>
+
+            <!-- Introduction -->
             <p>
-                With over 16,000 students from Josip Juraj Strossmayer University and a strong
-                international community, Osijek offers a dynamic and welcoming student atmosphere.
-                Here's what to expect!
+                What is it really like to be a student in Osijek? This city is a true university town,
+                with a youthful energy thanks to the Josip Juraj Strossmayer University. From campus life
+                to the cafés in Tvrđa, here is our guide to the Osijek student experience.
             </p>
 
-            <div class="info-cards">
-                <div class="info-card">
-                    <div class="info-card-icon">🎉</div>
-                    <h3>ESN Events</h3>
-                    <p>Weekly parties, trips, cultural nights, and social gatherings</p>
-                </div>
+            <!-- Section 1 : Le cœur social -->
+            <h2>Your Erasmus Family: ESN Osijek</h2>
 
-                <div class="info-card">
-                    <div class="info-card-icon">🍺</div>
-                    <h3>Nightlife</h3>
-                    <p>Student-friendly bars, clubs, and live music venues</p>
-                </div>
-
-                <div class="info-card">
-                    <div class="info-card-icon">⚽</div>
-                    <h3>Sports & Activities</h3>
-                    <p>University sports teams, fitness centers, and outdoor activities</p>
-                </div>
-
-                <div class="info-card">
-                    <div class="info-card-icon">🎭</div>
-                    <h3>Culture</h3>
-                    <p>Museums, theaters, festivals, and traditional Croatian events</p>
-                </div>
-            </div>
-
-            <h2>ESN Osijek - Your Best Friend</h2>
             <p>
-                <strong>Erasmus Student Network (ESN) Osijek</strong> is the main organization for
-                international students. They'll be your first point of contact and main social hub.
+                The first people you'll want to meet are from the Erasmus Student Network (ESN) Osijek.
+                This is a volunteer student organization dedicated to helping international students integrate.
             </p>
 
-            <h3>What ESN Offers:</h3>
-            <ul class="tips-list">
-                <li><strong>Welcome Week:</strong> Orientation activities, campus tours, and meet & greet events</li>
-                <li><strong>Buddy System:</strong> Local students assigned to help you settle in</li>
-                <li><strong>Weekly Events:</strong> Parties, pub crawls, movie nights, game nights</li>
-                <li><strong>Weekend Trips:</strong> Organized excursions to Zagreb, Plitvice Lakes, Split, and more</li>
-                <li><strong>Cultural Nights:</strong> International students share food and culture from their countries</li>
-                <li><strong>Language Exchange:</strong> Practice Croatian with locals and help them with English</li>
+            <h3>What they do:</h3>
+            <ul>
+                <li>Organizing your Welcome Week</li>
+                <li>Hosting theme parties, international dinners, and pub quizzes</li>
+                <li>Arranging trips to places like Kopački Rit or even other countries</li>
+                <li>Assigning you a 'Buddy' to help you with your first steps</li>
             </ul>
 
             <div class="highlight-box">
-                <h4>📱 Join ESN Early!</h4>
+                <h4>💡 Pro Tip</h4>
                 <p>
-                    Follow <strong>@esnosijek</strong> on Instagram and Facebook before you arrive.
-                    Get the ESNcard for discounts on travel, restaurants, and events across Europe!
+                    We highly recommend following their social media before you even arrive to stay
+                    updated on events.
                 </p>
             </div>
 
-            <h2>Nightlife & Social Scene</h2>
+            <!-- Section 2 : Le Campus -->
+            <h2>On Campus: UNIOS</h2>
 
-            <h3>🍻 Popular Student Bars</h3>
+            <p>
+                The university (UNIOS) is spread across the city, with a large, modern campus. Beyond
+                classes, you can get involved with the Student Union (Studentski zbor) which organizes
+                events, or check out cultural happenings at the Academy of Arts and Culture.
+            </p>
+
+            <!-- Section 3 : Le quotidien étudiant -->
+            <h2>The Student "Holy Trinity": Menza, Kava & Tvrđa</h2>
+
+            <!-- Sous-section Menza -->
+            <h3>1. The "Menza" (Student Canteens)</h3>
+
+            <p>
+                Your most important tool for saving money will be your 'iksica' (X-card), the official
+                Croatian student card. This card gives you access to heavily subsidized meals at student
+                canteens, known as 'Menza'. You can get a full meal for just a few euros.
+            </p>
+
+            <h4>Popular Menza locations:</h4>
             <ul>
-                <li><strong>Tufna:</strong> Iconic student bar in Tvrđa, live music and events</li>
-                <li><strong>Waldinger:</strong> Elegant café-bar, great for afternoon coffee or evening drinks</li>
-                <li><strong>The Doors:</strong> Rock bar with great atmosphere</li>
-                <li><strong>Patrick's Pub:</strong> Irish pub, quiz nights and sports broadcasts</li>
-                <li><strong>Kavana Waldinger:</strong> Historic café in the heart of Tvrđa</li>
+                <li>Restaurant Campus (at the main campus)</li>
+                <li>Restaurant Istarska / Gaudeamus (near the faculties)</li>
             </ul>
 
-            <h3>💃 Clubs & Dancing</h3>
+            <!-- Sous-section Kava -->
+            <h3>2. The Art of "Kava" (Coffee Culture)</h3>
+
+            <p>
+                You will quickly learn that 'going for a coffee' (ići na kavu) is a way of life in Croatia.
+                It's not a quick espresso; it's a social ritual that can last for hours. The city is filled
+                with cafés, especially along the Drava river and in the city center.
+            </p>
+
+            <!-- Sous-section Nightlife -->
+            <h3>3. The Nightlife: Tvrđa</h3>
+
+            <p>
+                When the sun goes down, students head to Tvrđa, the old baroque fortress. The historic
+                streets are packed with dozens of bars and clubs, all within walking distance. It's the
+                undisputed center of student nightlife.
+            </p>
+
+            <!-- Section 4 : Le budget -->
+            <h2>Budget & Discounts</h2>
+
+            <p>
+                Osijek is known for being one of the most affordable cities in Croatia.
+            </p>
+
             <ul>
-                <li><strong>Minimal Club:</strong> Electronic music, DJ nights</li>
-                <li><strong>Old Bridge Pub:</strong> Near the Drava, outdoor terrace in summer</li>
-                <li><strong>Stara Pljara:</strong> Alternative music venue, concerts and parties</li>
+                <li><strong>Accommodation:</strong> You can find more information in our
+                    <a href="../accommodation/index.html">Accommodation & Practical Tips</a> page</li>
+                <li><strong>Transport:</strong> As a student, you can get discounts on local transport
+                    (GPP buses/trams) and national trains (HŽ Putnički prijevoz). Fun fact: train travel
+                    within the Osijek-Baranja county is free for full-time students!</li>
+                <li><strong>General:</strong> Groceries, bakeries (pekara), and markets are all very
+                    reasonably priced</li>
             </ul>
 
-            <h3>Average Prices:</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Item</th>
-                        <th>Price (EUR)</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Beer (0.5L)</td>
-                        <td>€2-3</td>
-                    </tr>
-                    <tr>
-                        <td>Cocktail</td>
-                        <td>€4-6</td>
-                    </tr>
-                    <tr>
-                        <td>Coffee</td>
-                        <td>€1.50-2.50</td>
-                    </tr>
-                    <tr>
-                        <td>Club Entry</td>
-                        <td>€0-5 (often free for ESN members)</td>
-                    </tr>
-                </tbody>
-            </table>
+            <!-- Section 5 : Sources -->
+            <h2>Sources</h2>
 
-            <h2>Sports & Recreation</h2>
-
-            <h3>🏋️ Fitness & Gyms</h3>
+            <p>
+                All information on this page was gathered before our departure. We consulted the following sources:
+            </p>
             <ul>
-                <li><strong>University Sports Center:</strong> Free or discounted for students</li>
-                <li><strong>Fitness clubs:</strong> €20-30/month with student discounts</li>
-                <li><strong>Outdoor gym:</strong> Free equipment along the Drava River promenade</li>
-                <li><strong>Swimming pool:</strong> University pool with student rates</li>
-            </ul>
-
-            <h3>⚽ Team Sports</h3>
-            <ul class="tips-list">
-                <li>Join university sports teams (football, basketball, volleyball, handball)</li>
-                <li>ESN organizes friendly matches and tournaments</li>
-                <li>Intramural leagues for different skill levels</li>
-                <li>Futsal courts available for booking</li>
-            </ul>
-
-            <h3>🚴 Outdoor Activities</h3>
-            <ul>
-                <li><strong>Cycling:</strong> Scenic routes along the Drava River</li>
-                <li><strong>Kopački Rit Nature Park:</strong> UNESCO biosphere reserve, perfect for hiking and bird watching</li>
-                <li><strong>Kayaking:</strong> Rental available on the Drava</li>
-                <li><strong>Running:</strong> Beautiful riverside paths</li>
-            </ul>
-
-            <h2>Food & Dining</h2>
-
-            <h3>🍽️ Student-Friendly Restaurants</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Restaurant Type</th>
-                        <th>Average Meal Price</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>University Cafeteria (Menza)</td>
-                        <td>€2-4</td>
-                    </tr>
-                    <tr>
-                        <td>Fast Food (Burger, Pizza)</td>
-                        <td>€5-8</td>
-                    </tr>
-                    <tr>
-                        <td>Local Restaurant</td>
-                        <td>€8-12</td>
-                    </tr>
-                    <tr>
-                        <td>Nice Restaurant</td>
-                        <td>€12-20</td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <h3>Must-Try Croatian Dishes:</h3>
-            <ul>
-                <li><strong>Ćevapi:</strong> Grilled minced meat sausages with flatbread</li>
-                <li><strong>Kulen:</strong> Spicy Slavonian sausage (local specialty!)</li>
-                <li><strong>Fiš Paprikaš:</strong> Spicy fish stew</li>
-                <li><strong>Burek:</strong> Savory pastry with meat, cheese, or spinach</li>
-                <li><strong>Strukli:</strong> Traditional pastry with cottage cheese</li>
-            </ul>
-
-            <h2>Cultural Activities & Events</h2>
-
-            <h3>🎭 Regular Events</h3>
-            <ul class="tips-list">
-                <li><strong>Osijek Summer Nights:</strong> July-August cultural festival</li>
-                <li><strong>Croatian Film Festival:</strong> Annual cinema event</li>
-                <li><strong>Music Festivals:</strong> Various genres throughout the year</li>
-                <li><strong>Student Theatre:</strong> Performances by university groups</li>
-                <li><strong>Art Galleries:</strong> Regular exhibitions in Tvrđa</li>
-            </ul>
-
-            <h3>📚 Museums & Cultural Sites</h3>
-            <ul>
-                <li><strong>Museum of Slavonia:</strong> Regional history and archaeology</li>
-                <li><strong>Tvrđa Fortress:</strong> Historic baroque military complex</li>
-                <li><strong>Croatian National Theatre:</strong> Plays and performances</li>
-                <li><strong>Zimmer Frei Gallery:</strong> Contemporary art exhibitions</li>
-            </ul>
-
-            <h2>Day Trips & Weekend Adventures</h2>
-
-            <h3>🗺️ Nearby Destinations</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Destination</th>
-                        <th>Distance</th>
-                        <th>Highlights</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Kopački Rit</td>
-                        <td>10km</td>
-                        <td>Nature reserve, wildlife</td>
-                    </tr>
-                    <tr>
-                        <td>Vukovar</td>
-                        <td>35km</td>
-                        <td>Historic city, Danube views</td>
-                    </tr>
-                    <tr>
-                        <td>Zagreb</td>
-                        <td>280km</td>
-                        <td>Capital city, vibrant nightlife</td>
-                    </tr>
-                    <tr>
-                        <td>Plitvice Lakes</td>
-                        <td>250km</td>
-                        <td>UNESCO park, waterfalls</td>
-                    </tr>
-                    <tr>
-                        <td>Split</td>
-                        <td>500km</td>
-                        <td>Coastal city, Diocletian's Palace</td>
-                    </tr>
-                    <tr>
-                        <td>Budapest</td>
-                        <td>300km</td>
-                        <td>Hungarian capital</td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <div class="highlight-box">
-                <h4>🎒 ESN Organized Trips</h4>
-                <p>
-                    ESN organizes affordable weekend trips to major destinations including
-                    Plitvice, Split, Dubrovnik, and neighboring countries. Book early as
-                    spots fill up fast!
-                </p>
-            </div>
-
-            <h2>Tips for Making the Most of Your Stay</h2>
-
-            <ul class="tips-list">
-                <li><strong>Say Yes to Everything:</strong> Especially in the first weeks - this is how you'll make friends!</li>
-                <li><strong>Learn Basic Croatian:</strong> Locals appreciate the effort and it helps integration</li>
-                <li><strong>Join Clubs:</strong> Sports teams, music groups, volunteer organizations</li>
-                <li><strong>Explore Beyond Osijek:</strong> Croatia has amazing diversity - use weekends wisely</li>
-                <li><strong>Document Everything:</strong> Photos, videos, journal - you'll want to remember this!</li>
-                <li><strong>Balance is Key:</strong> Party, but don't forget why you're here - studies matter too!</li>
-                <li><strong>Be Open-Minded:</strong> Embrace cultural differences and new experiences</li>
-                <li><strong>Connect with Locals:</strong> Don't just stick with other international students</li>
+                <li>ESN Osijek official social media and website</li>
+                <li>Josip Juraj Strossmayer University official website
+                    (<a href="https://www.unios.hr" target="_blank" rel="noopener">www.unios.hr</a>)</li>
+                <li>Croatian Student Union (Studentski zbor) information</li>
+                <li>Student experiences and testimonials from previous Erasmus students</li>
             </ul>
 
             <a href="../blog-listing/index.html" class="cta-button">Read Our Blog Stories →</a>
@@ -333,7 +237,7 @@
     <!-- FOOTER -->
     <footer class="footer">
         <div class="footer-content">
-            <p><strong>Discover Osijek</strong> – Erasmus Experience 2024</p>
+            <p><strong>Discover Osijek</strong> — Erasmus Experience 2024</p>
             <p>Explore, Learn, Experience</p>
             <div class="footer-links">
                 <a href="../about/index.html" class="footer-link">About</a>
