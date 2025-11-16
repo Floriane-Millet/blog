@@ -13,6 +13,409 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="styles.css">
+    
+    <style>
+        /* Additional styles for the enhanced layout */
+        .hero-full {
+            height: 70vh;
+            background: linear-gradient(135deg, rgba(255, 107, 53, 0.9), rgba(157, 78, 221, 0.9)), 
+                        url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=1600&h=900&fit=crop') center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-full::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: patternMove 20s linear infinite;
+        }
+        
+        @keyframes patternMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+            padding: 2rem;
+        }
+        
+        .hero-full h1 {
+            font-size: 4.5rem;
+            font-weight: 900;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            animation: fadeInUp 0.8s ease;
+            white-space: nowrap;
+        }
+        
+        .hero-full p {
+            font-size: 1.8rem;
+            font-weight: 600;
+            opacity: 0.95;
+            animation: fadeInUp 0.8s ease 0.2s both;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .section-visual {
+            position: relative;
+            padding: 0;
+            margin: 0;
+            overflow: hidden;
+        }
+        
+        .split-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 600px;
+        }
+        
+        .split-content {
+            padding: 5rem 4rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: white;
+        }
+        
+        .split-image {
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        
+        .split-image::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255, 107, 53, 0.2), rgba(157, 78, 221, 0.2));
+        }
+        
+        .split-content h2 {
+            font-size: 3rem;
+            font-weight: 900;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+        }
+        
+        .split-content .emoji {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0;
+            margin: 0;
+        }
+        
+        .feature-card-full {
+            padding: 4rem 3rem;
+            text-align: center;
+            position: relative;
+            transition: all 0.4s ease;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .feature-card-full::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.7);
+            transition: all 0.4s ease;
+        }
+        
+        .feature-card-full:hover::before {
+            background: rgba(0, 0, 0, 0.5);
+        }
+        
+        .feature-card-full:hover {
+            transform: scale(1.05);
+            z-index: 2;
+        }
+        
+        .feature-content {
+            position: relative;
+            z-index: 2;
+            color: white;
+        }
+        
+        .feature-card-full .emoji {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+        }
+        
+        .feature-card-full h3 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: white;
+        }
+        
+        .feature-card-full p {
+            font-size: 1.1rem;
+            color: rgba(255,255,255,0.9);
+            line-height: 1.6;
+        }
+        
+        .full-width-cta {
+            background: linear-gradient(135deg, var(--accent-orange), var(--accent-pink));
+            color: white;
+            padding: 6rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .full-width-cta::before {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            top: -100px;
+            right: -100px;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .full-width-cta::after {
+            content: '';
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            bottom: -50px;
+            left: -50px;
+            animation: float 8s ease-in-out infinite reverse;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .full-width-cta h2 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .full-width-cta p {
+            font-size: 1.5rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.95;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .cta-button-large {
+            display: inline-block;
+            padding: 1.5rem 4rem;
+            background: white;
+            color: var(--accent-orange);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 800;
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+            position: relative;
+            z-index: 2;
+        }
+        
+        .cta-button-large:hover {
+            transform: translateY(-4px) scale(1.05);
+            box-shadow: 0 12px 32px rgba(0,0,0,0.3);
+        }
+        
+        .stats-section {
+            background: var(--black);
+            color: white;
+            padding: 5rem 2rem;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 4rem;
+            font-weight: 900;
+            color: var(--accent-orange);
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            font-size: 1.1rem;
+            font-weight: 600;
+            opacity: 0.9;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .timeline-section {
+            padding: 6rem 2rem;
+            background: var(--gray-light);
+        }
+        
+        .timeline-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .timeline-title {
+            text-align: center;
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 4rem;
+            color: var(--text-primary);
+        }
+        
+        .timeline-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 3rem;
+            text-align: center;
+            position: relative;
+        }
+        
+        .timeline-content {
+            background: white;
+            padding: 3rem 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 8px 24px var(--shadow);
+            border: 3px solid var(--black);
+            position: relative;
+            width: 100%;
+            max-width: 700px;
+            margin-top: 2rem;
+        }
+        
+        .timeline-content h3 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--accent-orange);
+            margin-bottom: 1.5rem;
+        }
+        
+        .timeline-icon {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, var(--accent-orange), var(--accent-pink));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            box-shadow: 0 8px 24px rgba(255, 107, 53, 0.5);
+            border: 5px solid white;
+            position: relative;
+            z-index: 2;
+        }
+        
+        @media (max-width: 1024px) {
+            .split-section {
+                grid-template-columns: 1fr;
+            }
+            
+            .split-image {
+                min-height: 400px;
+            }
+            
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .timeline-item {
+                margin-bottom: 2rem;
+            }
+            
+            .timeline-item::before {
+                left: 50%;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero-full h1 {
+                font-size: 2.5rem;
+                white-space: normal;
+            }
+            
+            .hero-full p {
+                font-size: 1.2rem;
+            }
+            
+            .split-content {
+                padding: 3rem 2rem;
+            }
+            
+            .split-content h2 {
+                font-size: 2rem;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .full-width-cta h2 {
+                font-size: 2rem;
+            }
+            
+            .full-width-cta p {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- HEADER -->
@@ -63,139 +466,240 @@
     </header>
 
     <!-- HERO SECTION -->
-    <section class="page-hero">
-        <h1>🎓 Student Life in Osijek</h1>
-        <p>Experience the vibrant university atmosphere</p>
+    <section class="hero-full">
+        <div class="hero-content">
+            <h1>🎓 Student Life in Osijek</h1>
+            <p>Experience the vibrant university atmosphere of Croatia's hidden gem</p>
+        </div>
     </section>
 
-    <!-- MAIN CONTENT -->
-    <main>
-        <!-- Content Section -->
-        <article class="content-section">
-            <h1>Student Life in Osijek</h1>
+    <!-- STATS SECTION -->
+    <section class="stats-section">
+        <div class="stats-grid">
+            <div class="stat-item">
+                <span class="stat-number">15K+</span>
+                <span class="stat-label">Students</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">500+</span>
+                <span class="stat-label">Erasmus/Year</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">50+</span>
+                <span class="stat-label">Events/Semester</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">€300</span>
+                <span class="stat-label">Avg. Monthly Cost</span>
+            </div>
+        </div>
+    </section>
 
-            <!-- Introduction -->
-            <p>
-                What is it really like to be a student in Osijek? This city is a true university town,
-                with a youthful energy thanks to the Josip Juraj Strossmayer University. From campus life
-                to the cafés in Tvrđa, here is our guide to the Osijek student experience.
-            </p>
-
-            <!-- Section 1 : Le cœur social -->
-            <h2>Your Erasmus Family: ESN Osijek</h2>
-
-            <p>
-                The first people you'll want to meet are from the Erasmus Student Network (ESN) Osijek.
-                This is a volunteer student organization dedicated to helping international students integrate.
-            </p>
-
-            <h3>What they do:</h3>
-            <ul>
-                <li>Organizing your Welcome Week</li>
-                <li>Hosting theme parties, international dinners, and pub quizzes</li>
-                <li>Arranging trips to places like Kopački Rit or even other countries</li>
-                <li>Assigning you a 'Buddy' to help you with your first steps</li>
-            </ul>
-
-            <div class="highlight-box">
-                <h4>💡 Pro Tip</h4>
-                <p>
-                    We highly recommend following their social media before you even arrive to stay
-                    updated on events.
+    <!-- INTRO SPLIT SECTION -->
+    <section class="section-visual">
+        <div class="split-section">
+            <div class="split-content">
+                <span class="emoji">🎉</span>
+                <h2>Welcome to Osijek!</h2>
+                <p style="font-size: 1.2rem; line-height: 1.8; color: var(--text-secondary);">
+                    What is it really like to be a student in Osijek? This city is a true university town, 
+                    with a youthful energy thanks to the Josip Juraj Strossmayer University. From campus life 
+                    to the cafés in Tvrđa, here is your complete guide to the Osijek student experience.
+                </p>
+                <p style="font-size: 1.1rem; line-height: 1.8; color: var(--text-secondary); margin-top: 1.5rem;">
+                    Whether you're looking for academic excellence, vibrant nightlife, or affordable living, 
+                    Osijek offers the perfect balance for international students.
                 </p>
             </div>
+            <div class="split-image" style="background-image: url('https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=800&h=600&fit=crop');"></div>
+        </div>
+    </section>
 
-            <!-- Section 2 : Le Campus -->
-            <h2>On Campus: UNIOS</h2>
+    <!-- ESN SECTION -->
+    <section class="section-visual">
+        <div class="split-section">
+            <div class="split-image" style="background-image: url('https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=800&h=600&fit=crop');"></div>
+            <div class="split-content" style="background: linear-gradient(135deg, var(--light-yellow), white);">
+                <span class="emoji">👥</span>
+                <h2>Your Erasmus Family: ESN Osijek</h2>
+                <p style="font-size: 1.1rem; line-height: 1.8; color: var(--text-secondary);">
+                    The first people you'll want to meet are from the Erasmus Student Network (ESN) Osijek. 
+                    This volunteer student organization is dedicated to helping international students integrate 
+                    and make the most of their experience.
+                </p>
+                <div class="highlight-box" style="margin-top: 2rem;">
+                    <h4>💡 What they do</h4>
+                    <ul style="margin: 1rem 0; padding-left: 1.5rem;">
+                        <li><strong>Welcome Week</strong> - Your first week orientation</li>
+                        <li><strong>Social Events</strong> - Theme parties, pub quizzes, international dinners</li>
+                        <li><strong>Trips & Excursions</strong> - Kopački Rit, Zagreb, and beyond</li>
+                        <li><strong>Buddy System</strong> - Get a personal guide to help you settle in</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
 
-            <p>
-                The university (UNIOS) is spread across the city, with a large, modern campus. Beyond
-                classes, you can get involved with the Student Union (Studentski zbor) which organizes
-                events, or check out cultural happenings at the Academy of Arts and Culture.
+    <!-- CAMPUS SECTION -->
+    <section class="section-visual">
+        <div class="split-section">
+            <div class="split-content" style="background: var(--gray-light);">
+                <span class="emoji">🏛️</span>
+                <h2>On Campus: UNIOS</h2>
+                <p style="font-size: 1.1rem; line-height: 1.8; color: var(--text-secondary);">
+                    The Josip Juraj Strossmayer University (UNIOS) is spread across the city with a large, modern 
+                    main campus. Beyond classes, you can get involved with:
+                </p>
+                <div class="info-cards" style="margin-top: 2rem; grid-template-columns: 1fr;">
+                    <div class="info-card">
+                        <div class="info-card-icon">📚</div>
+                        <h3>Student Union</h3>
+                        <p>Studentski zbor organizes events, advocates for student rights, and creates community programs</p>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-card-icon">🎭</div>
+                        <h3>Academy of Arts</h3>
+                        <p>Cultural happenings, exhibitions, performances, and creative workshops throughout the year</p>
+                    </div>
+                </div>
+            </div>
+            <div class="split-image" style="background-image: url('https://images.unsplash.com/photo-1564981797816-1043664bf78d?w=800&h=600&fit=crop'); background-position: center 40%;"></div>
+        </div>
+    </section>
+
+    <!-- TRANSITION TO STUDENT LIFE -->
+    <section style="background: linear-gradient(135deg, var(--accent-orange), var(--accent-pink)); padding: 4rem 2rem; text-align: center; color: white;">
+        <div style="max-width: 900px; margin: 0 auto;">
+            <h2 style="font-size: 3rem; font-weight: 900; margin-bottom: 1.5rem;">The Student "Holy Trinity"</h2>
+            <p style="font-size: 1.3rem; line-height: 1.8; opacity: 0.95;">
+                Every student in Osijek lives by three essential pillars that define daily life: 
+                affordable meals at the Menza, the sacred coffee culture, and unforgettable nights in Tvrđa. 
+                Master these three, and you've mastered student life in Osijek!
             </p>
+        </div>
+    </section>
 
-            <!-- Section 3 : Le quotidien étudiant -->
-            <h2>The Student "Holy Trinity": Menza, Kava & Tvrđa</h2>
+    <!-- HOLY TRINITY CARDS -->
+    <section class="section-visual">
+        <div class="feature-grid">
+            <div class="feature-card-full" style="background-image: url('https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=600&h=600&fit=crop');">
+                <div class="feature-content">
+                    <span class="emoji">🍽️</span>
+                    <h3>The Menza</h3>
+                    <p>Student canteens offering full meals for just €2-3 with your X-card (iksica). Popular locations include Restaurant Campus and Gaudeamus.</p>
+                </div>
+            </div>
+            <div class="feature-card-full" style="background-image: url('https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=600&h=600&fit=crop');">
+                <div class="feature-content">
+                    <span class="emoji">☕</span>
+                    <h3>Kava Culture</h3>
+                    <p>"Going for a coffee" (ići na kavu) is a way of life in Croatia. It's not quick – it's a social ritual that can last for hours along the Drava river.</p>
+                </div>
+            </div>
+            <div class="feature-card-full" style="background-image: url('https://images.unsplash.com/photo-1514933651103-005eec06c04b?w=600&h=600&fit=crop');">
+                <div class="feature-content">
+                    <span class="emoji">🎵</span>
+                    <h3>Tvrđa Nightlife</h3>
+                    <p>The baroque fortress transforms into the undisputed center of student nightlife, with dozens of bars and clubs all within walking distance.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-            <!-- Sous-section Menza -->
-            <h3>1. The "Menza" (Student Canteens)</h3>
-
-            <p>
-                Your most important tool for saving money will be your 'iksica' (X-card), the official
-                Croatian student card. This card gives you access to heavily subsidized meals at student
-                canteens, known as 'Menza'. You can get a full meal for just a few euros.
+    <!-- BUDGET TIMELINE -->
+    <section class="timeline-section">
+        <div class="timeline-container">
+            <h2 class="timeline-title">💰 Budget & Discounts</h2>
+            <p style="text-align: center; font-size: 1.2rem; color: var(--text-secondary); margin-bottom: 4rem;">
+                Osijek is one of the most affordable cities in Croatia. Here's what you need to know:
             </p>
+            
+            <div class="timeline-item">
+                <div class="timeline-icon">🏠</div>
+                <div class="timeline-content">
+                    <h3>Accommodation</h3>
+                    <p style="color: var(--text-secondary); font-size: 1.1rem; line-height: 1.8;">
+                        Student dorms from <strong style="color: var(--accent-orange);">€80-150/month</strong>. 
+                        Private apartments <strong style="color: var(--accent-orange);">€200-350/month</strong>. 
+                        Check our <a href="../accommodation/index.html" style="color: var(--accent-orange); font-weight: 700; text-decoration: underline;">Accommodation Guide</a> for details.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-icon">🚌</div>
+                <div class="timeline-content">
+                    <h3>Transport</h3>
+                    <p style="color: var(--text-secondary); font-size: 1.1rem; line-height: 1.8;">
+                        Student discounts on GPP buses/trams and national trains. 
+                        <strong style="color: var(--accent-orange); display: block; margin-top: 0.5rem; font-size: 1.2rem;">
+                            ✨ Free train travel within Osijek-Baranja county for full-time students!
+                        </strong>
+                    </p>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-icon">🛒</div>
+                <div class="timeline-content">
+                    <h3>Food & Daily Life</h3>
+                    <p style="color: var(--text-secondary); font-size: 1.1rem; line-height: 1.8;">
+                        Groceries, bakeries (pekara), and markets are very reasonably priced. 
+                        Budget <strong style="color: var(--accent-orange);">€150-250/month</strong> for food, 
+                        depending on your lifestyle.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-icon">🎉</div>
+                <div class="timeline-content">
+                    <h3>Entertainment</h3>
+                    <p style="color: var(--text-secondary); font-size: 1.1rem; line-height: 1.8;">
+                        Student discounts at cinemas, museums, and cultural events. 
+                        Nightlife is affordable with drinks from <strong style="color: var(--accent-orange);">€2-3</strong> in Tvrđa.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-            <h4>Popular Menza locations:</h4>
-            <ul>
-                <li>Restaurant Campus (at the main campus)</li>
-                <li>Restaurant Istarska / Gaudeamus (near the faculties)</li>
-            </ul>
+    <!-- CTA SECTION -->
+    <section class="full-width-cta">
+        <h2>Ready to Start Your Adventure?</h2>
+        <p>Read real stories from students currently living the Osijek experience</p>
+        <a href="../blog-listing/index.html" class="cta-button-large">Read Our Blog Stories →</a>
+    </section>
 
-            <!-- Sous-section Kava -->
-            <h3>2. The Art of "Kava" (Coffee Culture)</h3>
-
-            <p>
-                You will quickly learn that 'going for a coffee' (ići na kavu) is a way of life in Croatia.
-                It's not a quick espresso; it's a social ritual that can last for hours. The city is filled
-                with cafés, especially along the Drava river and in the city center.
-            </p>
-
-            <!-- Sous-section Nightlife -->
-            <h3>3. The Nightlife: Tvrđa</h3>
-
-            <p>
-                When the sun goes down, students head to Tvrđa, the old baroque fortress. The historic
-                streets are packed with dozens of bars and clubs, all within walking distance. It's the
-                undisputed center of student nightlife.
-            </p>
-
-            <!-- Section 4 : Le budget -->
-            <h2>Budget & Discounts</h2>
-
-            <p>
-                Osijek is known for being one of the most affordable cities in Croatia.
-            </p>
-
-            <ul>
-                <li><strong>Accommodation:</strong> You can find more information in our
-                    <a href="../accommodation/index.html">Accommodation & Practical Tips</a> page</li>
-                <li><strong>Transport:</strong> As a student, you can get discounts on local transport
-                    (GPP buses/trams) and national trains (HŽ Putnički prijevoz). Fun fact: train travel
-                    within the Osijek-Baranja county is free for full-time students!</li>
-                <li><strong>General:</strong> Groceries, bakeries (pekara), and markets are all very
-                    reasonably priced</li>
-            </ul>
-
-            <!-- Section 5 : Sources -->
-            <h2>Sources</h2>
-
-            <p>
+    <!-- SOURCES SECTION -->
+    <section style="padding: 4rem 2rem; background: white;">
+        <div style="max-width: 800px; margin: 0 auto;">
+            <h2 style="font-size: 2rem; font-weight: 800; margin-bottom: 2rem; text-align: center;">📚 Sources</h2>
+            <p style="color: var(--text-secondary); font-size: 1.1rem; line-height: 1.8; text-align: center; margin-bottom: 2rem;">
                 All information on this page was gathered before our departure. We consulted the following sources:
             </p>
-            <ul>
-                <li>ESN Osijek official social media and website</li>
-                <li>Josip Juraj Strossmayer University official website
-                    (<a href="https://www.unios.hr" target="_blank" rel="noopener">www.unios.hr</a>)</li>
-                <li>Croatian Student Union (Studentski zbor) information</li>
-                <li>Student experiences and testimonials from previous Erasmus students</li>
+            <ul style="list-style: none; padding: 0; max-width: 600px; margin: 0 auto;">
+                <li style="padding: 1rem; margin-bottom: 1rem; background: var(--gray-light); border-radius: 12px; border-left: 4px solid var(--accent-orange);">
+                    <strong>ESN Osijek</strong> - Official social media and website
+                </li>
+                <li style="padding: 1rem; margin-bottom: 1rem; background: var(--gray-light); border-radius: 12px; border-left: 4px solid var(--accent-pink);">
+                    <strong>UNIOS</strong> - Josip Juraj Strossmayer University (<a href="https://www.unios.hr" target="_blank" rel="noopener" style="color: var(--accent-orange);">www.unios.hr</a>)
+                </li>
+                <li style="padding: 1rem; margin-bottom: 1rem; background: var(--gray-light); border-radius: 12px; border-left: 4px solid var(--accent-purple);">
+                    <strong>Studentski zbor</strong> - Croatian Student Union information
+                </li>
+                <li style="padding: 1rem; background: var(--gray-light); border-radius: 12px; border-left: 4px solid var(--accent-green);">
+                    <strong>Student Experiences</strong> - Testimonials from previous Erasmus students
+                </li>
             </ul>
-
-            <a href="../blog-listing/index.html" class="cta-button">Read Our Blog Stories →</a>
-        </article>
-    </main>
+        </div>
+    </section>
 
     <!-- FOOTER -->
     <footer class="footer">
         <div class="footer-content">
-            <p><strong>Discover Osijek</strong> — Erasmus Experience 2024</p>
+            <p><strong>Discover Osijek</strong> – Erasmus Experience 2024</p>
             <p>Explore, Learn, Experience</p>
-            <div class="footer-links">
-                <a href="../about/index.html" class="footer-link">About</a>
-                <a href="../blog-listing/index.html" class="footer-link">Blog</a>
-                <a href="#" class="footer-link">Contact</a>
-                <a href="#" class="footer-link">Resources</a>
-            </div>
         </div>
     </footer>
 
