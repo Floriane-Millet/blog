@@ -9,7 +9,7 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="styles.css">
@@ -32,7 +32,7 @@
             <nav>
                 <ul class="nav-menu">
                     <li class="nav-item">
-                        <a href="../index.html" class="nav-link">Home</a>
+                        <a href="../destination/index.html" class="nav-link">Home</a>
                     </li>
                     <li class="nav-item">
                         <a href="index.html" class="nav-link active">About Us</a>
@@ -43,9 +43,6 @@
                             <span class="dropdown-arrow">▼</span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li class="dropdown-item">
-                                <a href="../destination/index.html" class="dropdown-link">Destination: Osijek</a>
-                            </li>
                             <li class="dropdown-item">
                                 <a href="../transport/index.html" class="dropdown-link">Getting There & Around</a>
                             </li>
@@ -65,21 +62,21 @@
         </div>
     </header>
 
+    <!-- HERO SECTION -->
+    <section class="page-hero">
+        <h1>👥 About Us</h1>
+        <p>
+            We are Erasmus students documenting our journey in Osijek, Croatia.
+            This blog is our way of sharing experiences, tips, and insights to help
+            future students make the most of their exchange adventure.
+        </p>
+    </section>
+
     <!-- MAIN CONTENT -->
     <main>
-        <!-- Hero Section -->
-        <section class="about-hero">
-            <h1>About Us</h1>
-            <p>
-                We are Erasmus students documenting our journey in Osijek, Croatia.
-                This blog is our way of sharing experiences, tips, and insights to help
-                future students make the most of their exchange adventure.
-            </p>
-        </section>
-
         <!-- Mission Section -->
-        <section class="mission-section">
-            <div class="mission-content">
+        <article class="content-section">
+            <div>
                 <h2>Our Mission</h2>
                 <p>
                     Starting an Erasmus journey can be both exciting and overwhelming. We created
@@ -101,16 +98,13 @@
                     throughout your Erasmus journey.
                 </p>
             </div>
-        </section>
 
-        <!-- Team Section -->
-        <section class="team-section">
-            <h2 class="section-title">Meet the Team</h2>
-            <div class="team-grid">
-                <div class="team-member">
-                    <div class="team-avatar">👨‍🎓</div>
+            <h2>Meet the Team</h2>
+            <div class="info-cards">
+                <div class="info-card">
+                    <div class="info-card-icon">👨‍🎓</div>
                     <h3>Alexandre</h3>
-                    <p class="role">Computer Science Student</p>
+                    <p><strong>Computer Science Student</strong></p>
                     <p>
                         Passionate about technology and cultural exchange. Responsible for
                         the technical aspects of the blog and sharing insights about student
@@ -118,27 +112,27 @@
                     </p>
                 </div>
 
-                <div class="team-member">
-                    <div class="team-avatar">👩‍🎓</div>
+                <div class="info-card">
+                    <div class="info-card-icon">👩‍🎓</div>
                     <h3>Marie</h3>
-                    <p class="role">Business Management Student</p>
+                    <p><strong>Business Management Student</strong></p>
                     <p>
                         Loves exploring new cultures and documenting experiences. Focuses on
                         practical tips for accommodation, budgeting, and adapting to life abroad.
                     </p>
                 </div>
 
-                <div class="team-member">
-                    <div class="team-avatar">👨‍🎓</div>
+                <div class="info-card">
+                    <div class="info-card-icon">👨‍🎓</div>
                     <h3>Lucas</h3>
-                    <p class="role">International Relations Student</p>
+                    <p><strong>International Relations Student</strong></p>
                     <p>
                         Enthusiastic about Croatian culture and history. Shares insights about
                         local customs, traditions, and the best places to visit in and around Osijek.
                     </p>
                 </div>
             </div>
-        </section>
+        </article>
     </main>
 
     <!-- FOOTER -->

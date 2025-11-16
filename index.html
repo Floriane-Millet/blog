@@ -209,7 +209,7 @@
         `);
 
         // ===== FONCTION DE NAVIGATION =====
-        function goToHome() {
+        function goToDestination() {
             // Animation de zoom vers Osijek
             map.flyTo([OSIJEK_LAT, OSIJEK_LNG], 13, {
                 duration: 1.5,
@@ -218,16 +218,16 @@
 
             // Redirection après l'animation
             setTimeout(function() {
-                window.location.href = 'home/index.html';
+                window.location.href = 'destination/index.html';
             }, 1600);
         }
 
         // ===== ÉVÉNEMENTS =====
         // Clic sur le marqueur
-        marker.on('click', goToHome);
+        marker.on('click', goToDestination);
 
         // Clic sur le bouton
-        document.getElementById('osijekButton').addEventListener('click', goToHome);
+        document.getElementById('osijekButton').addEventListener('click', goToDestination);
 
         // ===== MASQUER LE LOADING =====
         map.whenReady(function() {
