@@ -1,9 +1,84 @@
 // ========================================
-// CONFIGURATION
+// HERO SLIDER FUNCTIONALITY
 // ========================================
-const OSIJEK_COORDS = [45.554962, 18.695514];
-const EUROPE_CENTER = [50.0, 10.0];
-const EUROPE_ZOOM = 4;
+const slides = document.querySelectorAll('.slide');
+const dots = document.querySelectorAll('.dot');
+const prevBtn = document.querySelector('.slider-nav.prev');
+const nextBtn = document.querySelector('.slider-nav.next');
+
+let currentSlide = 0;
+let slideInterval;
+
+// Function to show specific slide
+function showSlide(index) {
+    // Remove active class from all slides and dots
+    slides.forEach(slide => slide.classList.remove('active'));
+    dots.forEach(dot => dot.classList.remove('active'));
+    
+    // Add active class to current slide and dot
+    slides[index].classList.add('active');
+    dots[index].classList.add('active');
+}
+
+// Next slide
+function nextSlide() {
+    currentSlide = (currentSlide + 1) % slides.length;
+    showSlide(currentSlide);
+}
+
+// Previous slide
+function prevSlide() {
+    currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+    showSlide(currentSlide);
+}
+
+// Auto play slider
+function startSlider() {
+    slideInterval = setInterval(nextSlide, 5000); // Change slide every 5 seconds
+}
+
+function stopSlider() {
+    clearInterval(slideInterval);
+}
+
+// Event listeners for navigation buttons
+if (nextBtn) {
+    nextBtn.addEventListener('click', () => {
+        nextSlide();
+        stopSlider();
+        startSlider(); // Restart auto-play
+    });
+}
+
+if (prevBtn) {
+    prevBtn.addEventListener('click', () => {
+        prevSlide();
+        stopSlider();
+        startSlider();
+    });
+}
+
+// Event listeners for dots
+dots.forEach((dot, index) => {
+    dot.addEventListener('click', () => {
+        currentSlide = index;
+        showSlide(currentSlide);
+        stopSlider();
+        startSlider();
+    });
+});
+
+// Start auto-play when page loads
+if (slides.length > 0) {
+    startSlider();
+}
+
+// Pause slider when user hovers over it
+const sliderContainer = document.querySelector('.hero-slider');
+if (sliderContainer) {
+    sliderContainer.addEventListener('mouseenter', stopSlider);
+    sliderContainer.addEventListener('mouseleave', startSlider);
+}
 
 // ========================================
 // DOM ELEMENTS
@@ -16,15 +91,10 @@ const dropdownItems = document.querySelectorAll('.nav-item.dropdown');
 // ========================================
 // HAMBURGER MENU TOGGLE
 // ========================================
-/**
- * Toggle mobile navigation menu
- * Adds/removes 'active' class to hamburger icon and nav menu
- */
 function toggleMenu() {
     hamburger.classList.toggle('active');
     navMenu.classList.toggle('active');
 
-    // Prevent body scroll when menu is open
     if (navMenu.classList.contains('active')) {
         document.body.style.overflow = 'hidden';
     } else {
@@ -32,7 +102,6 @@ function toggleMenu() {
     }
 }
 
-// Add click event to hamburger button
 if (hamburger) {
     hamburger.addEventListener('click', toggleMenu);
 }
@@ -40,28 +109,20 @@ if (hamburger) {
 // ========================================
 // DROPDOWN MENU FUNCTIONALITY
 // ========================================
-/**
- * Toggle dropdown menu on mobile devices
- * On desktop, dropdown works with CSS hover
- * On mobile, dropdown requires click/tap
- */
 dropdownItems.forEach(dropdown => {
     const dropdownLink = dropdown.querySelector('.nav-link');
 
     if (dropdownLink) {
         dropdownLink.addEventListener('click', function(e) {
-            // On mobile, toggle dropdown instead of navigating
             if (window.innerWidth <= 768) {
                 e.preventDefault();
 
-                // Close other dropdowns
                 dropdownItems.forEach(item => {
                     if (item !== dropdown) {
                         item.classList.remove('active');
                     }
                 });
 
-                // Toggle current dropdown
                 dropdown.classList.toggle('active');
             }
         });
@@ -71,13 +132,8 @@ dropdownItems.forEach(dropdown => {
 // ========================================
 // CLOSE MENU ON LINK CLICK
 // ========================================
-/**
- * Close mobile menu when clicking on any nav link
- * Improves UX by automatically closing menu after navigation
- */
 navLinks.forEach(link => {
     link.addEventListener('click', function(e) {
-        // Don't close if it's a dropdown toggle
         const isDropdownToggle = this.parentElement.classList.contains('dropdown') &&
                                   window.innerWidth <= 768;
 
@@ -92,9 +148,6 @@ navLinks.forEach(link => {
 // ========================================
 // CLOSE MENU ON OUTSIDE CLICK
 // ========================================
-/**
- * Close mobile menu when clicking outside of it
- */
 document.addEventListener('click', function(e) {
     const isClickInsideNav = navMenu.contains(e.target);
     const isClickOnHamburger = hamburger.contains(e.target);
@@ -109,9 +162,6 @@ document.addEventListener('click', function(e) {
 // ========================================
 // CLOSE MENU ON ESC KEY
 // ========================================
-/**
- * Close mobile menu when pressing Escape key
- */
 document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape' && navMenu.classList.contains('active')) {
         hamburger.classList.remove('active');
@@ -123,20 +173,15 @@ document.addEventListener('keydown', function(e) {
 // ========================================
 // HANDLE WINDOW RESIZE
 // ========================================
-/**
- * Reset menu state when resizing from mobile to desktop
- */
 let resizeTimer;
 window.addEventListener('resize', function() {
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(function() {
         if (window.innerWidth > 768) {
-            // Reset mobile menu state on desktop
             hamburger.classList.remove('active');
             navMenu.classList.remove('active');
             document.body.style.overflow = '';
 
-            // Remove active state from dropdowns
             dropdownItems.forEach(dropdown => {
                 dropdown.classList.remove('active');
             });
@@ -147,20 +192,14 @@ window.addEventListener('resize', function() {
 // ========================================
 // ACTIVE PAGE HIGHLIGHTING
 // ========================================
-/**
- * Highlight current page in navigation
- * Adds 'active' class to nav link matching current page
- */
 function setActiveNavLink() {
     const currentPage = window.location.pathname.split('/').pop() || 'index.html';
 
     navLinks.forEach(link => {
         const linkPage = link.getAttribute('href');
 
-        // Remove active class from all links first
         link.classList.remove('active');
 
-        // Add active class to current page link
         if (linkPage === currentPage ||
             (currentPage === '' && linkPage === 'index.html')) {
             link.classList.add('active');
@@ -168,15 +207,11 @@ function setActiveNavLink() {
     });
 }
 
-// Call on page load
 setActiveNavLink();
 
 // ========================================
 // SMOOTH SCROLL FOR ANCHOR LINKS
 // ========================================
-/**
- * Enable smooth scrolling for anchor links
- */
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
         const targetId = this.getAttribute('href');
@@ -191,7 +226,6 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                     block: 'start'
                 });
 
-                // Close mobile menu if open
                 if (navMenu.classList.contains('active')) {
                     hamburger.classList.remove('active');
                     navMenu.classList.remove('active');
@@ -205,9 +239,6 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 // ========================================
 // PAGE LOAD PERFORMANCE
 // ========================================
-/**
- * Log page load time for performance monitoring
- */
 window.addEventListener('load', function() {
     if (window.performance) {
         const loadTime = window.performance.timing.domContentLoadedEventEnd -

@@ -3,37 +3,252 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Discover Osijek - An Erasmus student experience in Croatia">
     <title>Discover Osijek | Erasmus Experience</title>
 
     <!-- Leaflet CSS -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-          crossorigin=""/>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 
-    <!-- Google Fonts - Inter -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 
-    <!-- Map Page Styles -->
-    <link rel="stylesheet" href="map-styles.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            overflow: hidden;
+        }
+
+        #map {
+            width: 100vw;
+            height: 100vh;
+        }
+
+        /* Loading */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: #1a1a1a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+
+        .loading-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(253, 181, 21, 0.3);
+            border-top: 4px solid #FDB515;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Bouton Osijek */
+        .osijek-button {
+            position: fixed;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            background: linear-gradient(135deg, #FDB515, #FF8C00);
+            color: white;
+            padding: 20px 50px;
+            border: none;
+            border-radius: 50px;
+            font-size: 22px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 8px 30px rgba(253, 181, 21, 0.5);
+            transition: all 0.3s ease;
+            opacity: 0;
+            animation: fadeIn 1s ease 1.5s forwards, pulse 2s ease-in-out 2.5s infinite;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .osijek-button:hover {
+            transform: translateX(-50%) scale(1.08);
+            box-shadow: 0 12px 40px rgba(253, 181, 21, 0.7);
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                box-shadow: 0 8px 30px rgba(253, 181, 21, 0.5);
+            }
+            50% {
+                box-shadow: 0 12px 50px rgba(253, 181, 21, 0.8);
+            }
+        }
+
+        /* Marqueur personnalisé - animation de rebond */
+        .bounce-marker {
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .osijek-button {
+                padding: 16px 40px;
+                font-size: 18px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <!-- Loading Overlay -->
+    <!-- Loading -->
     <div class="loading-overlay" id="loadingOverlay">
         <div class="spinner"></div>
     </div>
 
-    <!-- Fullscreen Map -->
+    <!-- Map -->
     <div id="map"></div>
 
-    <!-- Leaflet JS -->
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-            crossorigin=""></script>
+    <!-- Button -->
+    <button class="osijek-button" id="osijekButton">
+        <span>📍</span>
+        <span>Discover Osijek</span>
+    </button>
 
-    <!-- Map Page Script -->
-    <script src="map-script.js"></script>
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <script>
+        // ===== COORDONNÉES EXACTES =====
+        // Osijek, Croatie
+        const OSIJEK_LAT = 45.55527891150842;
+        const OSIJEK_LNG = 18.69342149440588;
+
+        // Centre de l'Europe pour la vue initiale
+        const MAP_CENTER_LAT = 50.0;
+        const MAP_CENTER_LNG = 10.0;
+        const INITIAL_ZOOM = 4;
+
+        // ===== INITIALISATION DE LA CARTE =====
+        const map = L.map('map', {
+            center: [MAP_CENTER_LAT, MAP_CENTER_LNG],
+            zoom: INITIAL_ZOOM,
+            zoomControl: true,
+            scrollWheelZoom: true,
+            minZoom: 3,
+            maxZoom: 19
+        });
+
+        // ===== TUILES OPENSTREETMAP =====
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+            maxZoom: 19
+        }).addTo(map);
+
+        // ===== CRÉER LE MARQUEUR PERSONNALISÉ =====
+        // Marqueur jaune/orange personnalisé
+        const markerIcon = L.divIcon({
+            className: 'custom-osijek-marker',
+            html: `
+                <div style="
+                    width: 40px;
+                    height: 40px;
+                    background: #FDB515;
+                    border: 4px solid white;
+                    border-radius: 50%;
+                    box-shadow: 0 4px 15px rgba(253, 181, 21, 0.6);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 20px;
+                    cursor: pointer;
+                ">📍</div>
+            `,
+            iconSize: [40, 40],
+            iconAnchor: [20, 20]
+        });
+
+        // ===== AJOUTER LE MARQUEUR À OSIJEK =====
+        const marker = L.marker([OSIJEK_LAT, OSIJEK_LNG], {
+            icon: markerIcon,
+            title: 'Osijek, Croatia'
+        }).addTo(map);
+
+        // ===== POPUP =====
+        marker.bindPopup(`
+            <div style="text-align: center; font-family: 'Inter', sans-serif;">
+                <h3 style="margin: 0 0 8px 0; color: #FF8C00;">Osijek</h3>
+                <p style="margin: 0; color: #666;">Croatia 🇭🇷</p>
+            </div>
+        `);
+
+        // ===== FONCTION DE NAVIGATION =====
+        function goToHome() {
+            // Animation de zoom vers Osijek
+            map.flyTo([OSIJEK_LAT, OSIJEK_LNG], 13, {
+                duration: 1.5,
+                easeLinearity: 0.5
+            });
+
+            // Redirection après l'animation
+            setTimeout(function() {
+                window.location.href = 'home/index.html';
+            }, 1600);
+        }
+
+        // ===== ÉVÉNEMENTS =====
+        // Clic sur le marqueur
+        marker.on('click', goToHome);
+
+        // Clic sur le bouton
+        document.getElementById('osijekButton').addEventListener('click', goToHome);
+
+        // ===== MASQUER LE LOADING =====
+        map.whenReady(function() {
+            setTimeout(function() {
+                document.getElementById('loadingOverlay').classList.add('hidden');
+            }, 500);
+        });
+
+        // ===== RESPONSIVE =====
+        if (window.innerWidth < 768) {
+            map.setZoom(3.5);
+        }
+
+        window.addEventListener('resize', function() {
+            map.invalidateSize();
+        });
+
+        // ===== DEBUG - Afficher les coordonnées au clic =====
+        map.on('click', function(e) {
+            console.log('Clicked at:', e.latlng.lat, e.latlng.lng);
+        });
+    </script>
 </body>
 </html>
